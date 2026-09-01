@@ -118,15 +118,13 @@
 
   <!-- ── practical info ───────────────────────────────────── -->
   <section class="info" aria-label="Praktisch">
-    <article class="info__card reveal">
+    <article class="info__card info__card--hours reveal">
       <span class="info__icon" aria-hidden="true">🕰️</span>
       <h2><span lang="nl">Openingstijden</span><span lang="en">Opening hours</span></h2>
-      <p data-hours-slot>
-        <span lang="nl">We houden onze tijden actueel op Google — ook op feestdagen.</span>
-        <span lang="en">We keep our hours up to date on Google — holidays included.</span>
-      </p>
+      <p class="hours__status" data-hours-status aria-live="polite"></p>
+      <ul class="hours" data-hours-list></ul>
       <a class="link-arrow" href="https://maps.app.goo.gl/7wuBDU6bThS6mnxq9" target="_blank" rel="noopener">
-        <span lang="nl">Bekijk op Google</span><span lang="en">Check on Google</span>
+        <span lang="nl">Ook op Google</span><span lang="en">Also on Google</span>
       </a>
     </article>
 
@@ -178,8 +176,8 @@
 
       <article class="dish reveal">
         <div class="dish__photo arch">
-          <img src="assets/img/pastry-table.jpg" width="1200" height="900"
-               alt="Vers gebak op tafel bij Koffie &amp; Zo">
+          <img src="assets/img/coffee-pastry.jpg" width="1200" height="1200" loading="lazy"
+               alt="Twee koffies met vers gebak op tafel">
         </div>
         <h3><span lang="nl">Appeltaart &amp; wisseltaart</span><span lang="en">Apple pie &amp; cake of the week</span></h3>
         <p>
@@ -278,9 +276,9 @@
         </a>
       </div>
       <div class="shop__strip">
-        <figure class="reveal"><img src="assets/img/vintage-shelf.jpg" width="1200" height="900" alt="Vintage kannen en servies op een plank"></figure>
-        <figure class="reveal"><img src="assets/img/textiles.jpg" width="1200" height="900" alt="Textiel en theedoeken in de winkel"></figure>
-        <figure class="reveal"><img src="assets/img/shop-wall.jpg" width="1200" height="900" alt="Winkelwand met decoratie en cadeaus"></figure>
+        <figure class="reveal"><img src="assets/img/products-mugs.jpg" width="1200" height="1200" loading="lazy" alt="Emaille mokken met het Koffie &amp; Zo logo, opgestapeld"></figure>
+        <figure class="reveal"><img src="assets/img/products-tins.jpg" width="1200" height="1200" loading="lazy" alt="Gekleurde blikken en thermosbekers in de winkel"></figure>
+        <figure class="reveal"><img src="assets/img/products-gifts.jpg" width="1200" height="1200" loading="lazy" alt="Ingepakte cadeaus en koffiebonen"></figure>
       </div>
     </div>
   </section>
@@ -329,6 +327,25 @@
     </div>
   </section>
 
+
+  <!-- ── what guests say ─────────────────────────────────── -->
+  <section class="voices" id="reviews" data-reviews hidden>
+    <div class="section-head reveal">
+      <p class="eyebrow"><span lang="nl">Wat gasten zeggen</span><span lang="en">What guests say</span></p>
+      <h2>
+        <span lang="nl">Uit de <em>reviews</em></span>
+        <span lang="en">From the <em>reviews</em></span>
+      </h2>
+    </div>
+    <div class="voices__grid" data-reviews-list></div>
+    <p class="voices__cta reveal">
+      <a class="btn btn--ghost" data-reviews-link href="https://maps.app.goo.gl/7wuBDU6bThS6mnxq9"
+         target="_blank" rel="noopener">
+        <span lang="nl">Lees alle reviews op Google</span><span lang="en">Read all reviews on Google</span>
+      </a>
+    </p>
+  </section>
+
   <!-- ── find us ──────────────────────────────────────────── -->
   <section class="find" id="contact">
     <div class="find__inner">
@@ -351,12 +368,23 @@
           <a class="btn btn--ghost btn--sm" href="mailto:info@koffieenzodelft.nl">info@koffieenzodelft.nl</a>
         </div>
       </div>
-      <figure class="find__photo reveal">
-        <img src="assets/img/terrace.jpg" width="1200" height="900" alt="Het terras van Koffie &amp; Zo aan de Peperstraat">
-        <figcaption>
-          <span lang="nl">Tot koffie enz.</span><span lang="en">The coffee's ready, see you soon.</span>
-        </figcaption>
-      </figure>
+      <div class="find__map reveal">
+        <div class="map-card" data-map>
+          <img class="map-card__still" src="assets/img/terrace.jpg" width="1200" height="900"
+               alt="Het terras van Koffie &amp; Zo aan de Peperstraat">
+          <button type="button" class="map-card__load" data-load-map>
+            <span class="map-card__pin" aria-hidden="true">📍</span>
+            <span lang="nl">Toon de kaart</span><span lang="en">Show the map</span>
+            <small>
+              <span lang="nl">laadt Google Maps</span><span lang="en">loads Google Maps</span>
+            </small>
+          </button>
+        </div>
+        <p class="find__caption">
+          <span lang="nl">Peperstraat 17 · 5 minuten lopen vanaf de Markt</span>
+          <span lang="en">Peperstraat 17 · a five-minute walk from the Markt</span>
+        </p>
+      </div>
     </div>
   </section>
 </main>

@@ -86,6 +86,134 @@
     });
   }
 
+
+  /* ── shared data loading ──────────────────────────────────
+     The single-file build inlines these as <script type="application/json">;
+     the normal site fetches them. Either way the callers see a promise. */
+  function loadData(id, path) {
+    var inline = document.getElementById(id);
+    if (inline) {
+      try { return Promise.resolve(JSON.parse(inline.textContent)); }
+      catch (e) { return Promise.reject(e); }
+    }
+    return fetch(path).then(function (r) {
+      if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
+      return r.json();
+    });
+  }
+  window.kzLoadData = loadData;
+
+  /* ── opening hours: the week, plus where we are in it ───── */
+  function minutes(hhmm) {
+    var bits = hhmm.split(':');
+    return parseInt(bits[0], 10) * 60 + parseInt(bits[1], 10);
+  }
+
+  function renderHours(data) {
+    var list = document.querySelector('[data-hours-list]');
+    var status = document.querySelector('[data-hours-status]');
+    if (!list && !status) return;
+
+    var now = new Date();
+    var today = now.getDay();
+    var nowMin = now.getHours() * 60 + now.getMinutes();
+    var byDay = {};
+    data.week.forEach(function (d) { byDay[d.day] = d; });
+
+    // Monday-first, the way a Dutch shop lists it
+    var order = [1, 2, 3, 4, 5, 6, 0];
+    if (list) {
+      list.innerHTML = order.map(function (day) {
+        var d = byDay[day];
+        var hours = d.closed
+          ? '<span lang="nl">gesloten</span><span lang="en">closed</span>'
+          : d.open + '–' + d.close;
+        return '<li' + (day === today ? ' class="is-today"' : '') + '>' +
+          '<span class="hours__day"><span lang="nl">' + d.nl + '</span>' +
+          '<span lang="en">' + d.en + '</span></span>' +
+          '<span class="hours__time">' + hours + '</span></li>';
+      }).join('');
+    }
+
+    if (!status) return;
+    var t = byDay[today];
+    var open = t && !t.closed && nowMin >= minutes(t.open) && nowMin < minutes(t.close);
+    var soon = t && !t.closed && !open && nowMin < minutes(t.open);
+    var next = null;
+    for (var i = 1; i <= 7 && !next; i++) {
+      var cand = byDay[(today + i) % 7];
+      if (cand && !cand.closed) next = cand;
+    }
+
+    var nl, en, state;
+    if (open) {
+      state = 'open';
+      nl = 'Nu open — tot ' + t.close;
+      en = 'Open now — until ' + t.close;
+    } else if (soon) {
+      state = 'soon';
+      nl = 'Vandaag open vanaf ' + t.open;
+      en = 'Open today from ' + t.open;
+    } else {
+      state = 'closed';
+      nl = next ? 'Nu gesloten — ' + next.nl + ' weer open om ' + next.open : 'Nu gesloten';
+      en = next ? 'Closed now — open again ' + next.en + ' at ' + next.open : 'Closed now';
+    }
+    status.dataset.state = state;
+    status.innerHTML = '<span class="hours__dot" aria-hidden="true"></span>' +
+      '<span lang="nl">' + nl + '</span><span lang="en">' + en + '</span>';
+  }
+
+  loadData('hours-data', 'data/hours.json').then(renderHours).catch(function (e) {
+    console.warn('hours', e);
+  });
+
+  /* ── guest quotes; the section stays away until there are any ── */
+  function renderReviews(data) {
+    var section = document.querySelector('[data-reviews]');
+    var list = document.querySelector('[data-reviews-list]');
+    if (!section || !list) return;
+    var quotes = (data && data.quotes) || [];
+    if (!quotes.length) return;               // nothing to show, nothing to see
+
+    list.innerHTML = quotes.map(function (q) {
+      var text = typeof q.text === 'string'
+        ? '<span>' + q.text + '</span>'
+        : '<span lang="nl">' + (q.text.nl || '') + '</span><span lang="en">' + (q.text.en || '') + '</span>';
+      return '<figure class="voice reveal">' +
+        '<blockquote>' + text + '</blockquote>' +
+        '<figcaption>' + (q.name || '') +
+        (q.source ? ' <span class="voice__source">· ' + q.source + '</span>' : '') +
+        '</figcaption></figure>';
+    }).join('');
+    section.hidden = false;
+
+    var link = document.querySelector('[data-reviews-link]');
+    if (link && data.source && data.source.url) link.href = data.source.url;
+    section.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  loadData('reviews-data', 'data/reviews.json').then(renderReviews).catch(function (e) {
+    console.warn('reviews', e);
+  });
+
+  /* ── the map loads only when asked, so Google isn't called on arrival ── */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-load-map]');
+    if (!btn) return;
+    var card = btn.closest('[data-map]');
+    var frame = document.createElement('iframe');
+    frame.src = 'https://www.google.com/maps?q=' +
+      encodeURIComponent('Koffie & Zo, Peperstraat 17, 2611 CH Delft') + '&output=embed';
+    frame.title = 'Koffie & Zo op de kaart';
+    frame.loading = 'lazy';
+    frame.referrerPolicy = 'no-referrer-when-downgrade';
+    frame.className = 'map-card__frame';
+    card.innerHTML = '';
+    card.appendChild(frame);
+    card.classList.add('is-loaded');
+  });
+
   /* ── highlight the section you're reading ─────────────── */
   var sections = Array.prototype.filter.call(
     document.querySelectorAll('main section[id]'),

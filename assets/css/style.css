@@ -16,11 +16,15 @@
   --brown:      #4E3E2B;
   --brown-deep: #34281B;
 
-  /* accents — one warm roast, one sunburst amber, one muted olive */
+  /* accents — one warm roast, one sunburst amber, one muted olive,
+     and a soft Delft blue for the cooler moments (hours, quotes, the map) */
   --terracotta: #AE5430;
   --terracotta-dark: #8F4324;
   --sage:       #77855F;
   --butter:     #E6BE6E;
+  --delft:      #A9C6D6;
+  --delft-deep: #47758C;
+  --delft-tint: #E8F0F4;
 
   /* type */
   --display: "Fraunces", "Iowan Old Style", Georgia, serif;
@@ -755,4 +759,135 @@ html[data-lang="en"] [lang="nl"] { display: none; }
     box-shadow: 3px 3px 0 var(--line);
   }
   .nav__cta::after { display: none; }
+}
+
+
+/* ── opening hours ──────────────────────────────────────── */
+.info__card--hours {
+  background: var(--delft-tint);
+  border-color: rgba(71, 117, 140, .28);
+}
+.hours__status {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--delft-deep);
+  margin-bottom: .7rem;
+}
+.hours__dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 0 3px rgba(119, 133, 95, .25);
+}
+.hours__status[data-state="closed"] { color: var(--ink-soft); }
+.hours__status[data-state="closed"] .hours__dot {
+  background: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(174, 84, 48, .2);
+}
+.hours__status[data-state="soon"] .hours__dot {
+  background: var(--butter);
+  box-shadow: 0 0 0 3px rgba(230, 190, 110, .3);
+}
+.hours {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: .92rem;
+  font-variant-numeric: tabular-nums;
+}
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .22rem 0;
+  color: var(--ink-soft);
+}
+.hours li.is-today {
+  color: var(--ink);
+  font-weight: 700;
+}
+.hours__day { text-transform: lowercase; }
+
+/* ── guest quotes ───────────────────────────────────────── */
+.voices {
+  position: relative;
+  z-index: 2;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--gutter);
+}
+.voices__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+.voice {
+  margin: 0;
+  padding: 1.4rem 1.5rem;
+  background: var(--delft-tint);
+  border: 1px solid rgba(71, 117, 140, .22);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.voice blockquote {
+  margin: 0 0 .9rem;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+}
+.voice blockquote::before { content: "“"; color: var(--delft-deep); margin-right: .1em; }
+.voice blockquote::after { content: "”"; color: var(--delft-deep); }
+.voice figcaption {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--delft-deep);
+}
+.voice__source { font-weight: 400; color: var(--ink-soft); }
+.voices__cta { text-align: center; margin-top: 1.8rem; }
+
+/* ── map ────────────────────────────────────────────────── */
+.map-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(71, 117, 140, .3);
+  box-shadow: var(--shadow-hard);
+  background: var(--delft-tint);
+  aspect-ratio: 4 / 3;
+}
+.map-card__still {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(.7) brightness(.92);
+}
+.map-card__load {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: .3rem;
+  width: 100%;
+  border: 0;
+  background: rgba(52, 40, 27, .42);
+  color: #FFF8EC;
+  font: 700 1.05rem var(--text);
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.map-card__load:hover { background: rgba(52, 40, 27, .55); }
+.map-card__load small { font-weight: 400; font-size: .78rem; opacity: .85; }
+.map-card__pin { font-size: 1.6rem; }
+.map-card__frame { width: 100%; height: 100%; border: 0; display: block; }
+.map-card.is-loaded { aspect-ratio: 4 / 3; }
+.find__caption {
+  margin-top: .8rem;
+  font-family: var(--display);
+  font-style: italic;
+  text-align: center;
+  color: var(--ink-soft);
 }

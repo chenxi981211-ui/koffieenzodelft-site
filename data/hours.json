@@ -1,0 +1,13 @@
+{
+  "_note": "0 = Sunday … 6 = Saturday. Times are 24h, local. Set closed:true for a closed day.",
+  "timezone": "Europe/Amsterdam",
+  "week": [
+    { "day": 0, "nl": "zondag",    "en": "Sunday",    "closed": true },
+    { "day": 1, "nl": "maandag",   "en": "Monday",    "open": "09:00", "close": "16:00" },
+    { "day": 2, "nl": "dinsdag",   "en": "Tuesday",   "open": "09:00", "close": "16:00" },
+    { "day": 3, "nl": "woensdag",  "en": "Wednesday", "open": "09:00", "close": "16:00" },
+    { "day": 4, "nl": "donderdag", "en": "Thursday",  "open": "09:00", "close": "16:00" },
+    { "day": 5, "nl": "vrijdag",   "en": "Friday",    "open": "09:00", "close": "16:00" },
+    { "day": 6, "nl": "zaterdag",  "en": "Saturday",  "open": "09:00", "close": "16:00" }
+  ]
+}
