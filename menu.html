@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Menukaart | Koffie &amp; Zo Delft</title>
 <meta name="description" content="De digitale menukaart van Koffie &amp; Zo in Delft — koffie, lunch, taart en meer. Zit je aan tafel? Bestel direct vanaf je telefoon.">
-<link rel="icon" href="assets/img/favicon.svg">
+<link rel="icon" href="assets/img/favicon.png">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-normal-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/karla-normal-latin.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
@@ -21,10 +21,8 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a class="brand" href="index.html">
-      <span class="brand__mark" aria-hidden="true">
-        <svg viewBox="0 0 48 48" role="presentation"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M13 20h18v10a9 9 0 0 1-9 9h0a9 9 0 0 1-9-9V20Z"/><path d="M31 23h4a4.5 4.5 0 0 1 0 9h-4"/><path d="M18 8c-1.6 2 1.6 3.4 0 5.4M24 7c-1.6 2 1.6 3.4 0 5.4M30 8c-1.6 2 1.6 3.4 0 5.4"/></g></svg>
-      </span>
-      <span class="brand__name">Koffie <em>&amp;</em> Zo</span>
+      <img class="brand__logo" src="assets/img/logo-mark.png" width="560" height="524"
+           alt="Koffie &amp; Zo">
     </a>
 
     <nav class="nav" id="nav" aria-label="Hoofdmenu">
@@ -66,6 +64,22 @@
         <span lang="en">Locally roasted coffee, fresh lunch and homemade cake. Sitting in? Tap <strong>+</strong>
           and order from your own table.</span>
       </p>
+
+      <div class="table-ask" data-table-ask hidden>
+        <label for="table-ask-input">
+          <span lang="nl">Aan welke tafel zit je?</span>
+          <span lang="en">Which table are you at?</span>
+        </label>
+        <div class="table-ask__row">
+          <input id="table-ask-input" type="number" min="1" max="99" inputmode="numeric" placeholder="7">
+          <button type="button" class="btn btn--primary btn--sm" data-table-ask-save>
+            <span lang="nl">Opslaan</span><span lang="en">Save</span>
+          </button>
+          <button type="button" class="table-ask__skip" data-table-ask-skip>
+            <span lang="nl">liever niet</span><span lang="en">not now</span>
+          </button>
+        </div>
+      </div>
 
       <div class="table-chip" data-table-chip hidden>
         <span class="table-chip__label">
@@ -127,7 +141,7 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__brand">
-      <span class="brand__name">Koffie <em>&amp;</em> Zo</span>
+      <span class="footer-logo"><img src="assets/img/logo.png" width="760" height="753" alt="Koffie &amp; Zo"></span>
       <p>Peperstraat 17, 2611 CH Delft</p>
     </div>
     <div class="site-footer__col">
@@ -167,7 +181,7 @@
   <div class="sheet__backdrop" data-close-sheet></div>
 
   <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
-    <div class="sheet__grip" aria-hidden="true"></div>
+    <button type="button" class="sheet__grip" data-close-sheet aria-label="Sluiten / Close"></button>
 
     <!-- cart view -->
     <div data-sheet-view="cart">
@@ -206,6 +220,9 @@
         <span lang="nl">Je betaalt straks aan de bar — alleen pinnen.</span>
         <span lang="en">You pay at the counter afterwards — cards only.</span>
       </p>
+      <button type="button" class="sheet__dismiss" data-close-sheet>
+        <span lang="nl">Terug naar de kaart</span><span lang="en">Back to the menu</span>
+      </button>
     </div>
 
     <!-- confirmation view -->
@@ -246,6 +263,9 @@
       <button type="button" class="sheet__close" data-close-options aria-label="Sluiten">✕</button>
     </header>
     <div data-options-list></div>
+    <button type="button" class="sheet__dismiss" data-close-options>
+      <span lang="nl">Annuleren</span><span lang="en">Cancel</span>
+    </button>
     <button type="button" class="btn btn--primary btn--block" data-confirm-options>
       <span lang="nl">Toevoegen</span><span lang="en">Add</span>
       <span data-options-price></span>

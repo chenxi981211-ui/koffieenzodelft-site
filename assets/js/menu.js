@@ -66,8 +66,9 @@
       save(TABLE_KEY, state.table);
     }
     if (params.get('bestellen') === '1' && !state.table) {
-      // arriving from a "order at your table" link: ask right away
-      setTimeout(function () { openSheet(); }, 400);
+      // arriving from an "order at your table" link: ask in the page, never in a modal
+      var ask = $('[data-table-ask]');
+      if (ask) ask.hidden = false;
     }
     paintTable();
   }
@@ -267,7 +268,9 @@
     if (!count) {
       list.innerHTML = '<li class="cart__empty">' +
         '<span lang="nl">Je bestelling is nog leeg — tik op + bij iets lekkers.</span>' +
-        '<span lang="en">Your order is still empty — tap + on something tasty.</span></li>';
+        '<span lang="en">Your order is still empty — tap + on something tasty.</span>' +
+        '<button type="button" class="btn btn--ghost btn--sm" data-close-sheet>' +
+        '<span lang="nl">Naar de kaart</span><span lang="en">To the menu</span></button></li>';
       var submit = $('[data-submit-order]');
       if (submit) submit.disabled = true;
       return;
@@ -335,15 +338,59 @@
     var sheet = $('[data-sheet]');
     showView('cart');
     sheet.hidden = false;
+    sheet.querySelector('.sheet__panel').style.transform = '';
     document.body.style.overflow = 'hidden';
     var input = $('[data-table-input]');
     if (input && !input.value && state.table) input.value = state.table;
+    // a history entry, so the phone's back gesture closes the sheet
+    if (!history.state || !history.state.kzSheet) {
+      history.pushState({ kzSheet: true }, '');
+    }
+    var close = sheet.querySelector('.sheet__close');
+    if (close) close.focus();
   }
 
-  function closeSheet() {
-    $('[data-sheet]').hidden = true;
+  function closeSheet(fromPopstate) {
+    var sheet = $('[data-sheet]');
+    if (sheet.hidden) return;
+    sheet.hidden = true;
+    sheet.querySelector('.sheet__panel').style.transform = '';
     document.body.style.overflow = '';
+    if (!fromPopstate && history.state && history.state.kzSheet) history.back();
   }
+
+  window.addEventListener('popstate', function () {
+    if (!$('[data-sheet]').hidden) closeSheet(true);
+    if (!$('[data-options]').hidden) closeOptions();
+  });
+
+  /* swipe the sheet down to dismiss it */
+  (function () {
+    var panel = null, startY = 0, delta = 0, dragging = false;
+    document.addEventListener('touchstart', function (e) {
+      var p = e.target.closest('.sheet__panel');
+      if (!p || p.scrollTop > 0) return;
+      panel = p; startY = e.touches[0].clientY; delta = 0; dragging = true;
+      panel.style.transition = 'none';
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+      delta = e.touches[0].clientY - startY;
+      if (delta > 0) panel.style.transform = 'translateY(' + delta + 'px)';
+    }, { passive: true });
+
+    document.addEventListener('touchend', function () {
+      if (!dragging) return;
+      dragging = false;
+      panel.style.transition = '';
+      if (delta > 110) {
+        if (panel.closest('[data-options]')) closeOptions();
+        else closeSheet();
+      }
+      panel.style.transform = '';
+    });
+  })();
 
   function showView(name) {
     $$('[data-sheet-view]').forEach(function (view) {
@@ -451,6 +498,22 @@
     if (e.target.closest('[data-open-order]')) { openSheet(); return; }
     if (e.target.closest('[data-close-sheet]')) { closeSheet(); return; }
     if (e.target.closest('[data-submit-order]')) { submitOrder(); return; }
+
+    if (e.target.closest('[data-table-ask-save]')) {
+      var askInput = $('#table-ask-input');
+      var value = askInput.value.trim();
+      if (!value) { askInput.focus(); return; }
+      state.table = value;
+      save(TABLE_KEY, value);
+      $('[data-table-ask]').hidden = true;
+      paintTable();
+      toast(lang() === 'nl' ? 'Tafel ' + value + ' — bestel maar' : 'Table ' + value + ' — order away');
+      return;
+    }
+    if (e.target.closest('[data-table-ask-skip]')) {
+      $('[data-table-ask]').hidden = true;
+      return;
+    }
 
     if (e.target.closest('[data-change-table]')) {
       openSheet();
