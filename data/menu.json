@@ -1,0 +1,154 @@
+{
+  "_note": "Menukaart overgenomen van de zomerkaart-PDF van koffieenzodelft.nl. LET OP: de prijzen bij de drankjes en het gebak stonden in de PDF in een aparte kolom die niet één-op-één uit te lezen was — controleer die regels (priceCheck: true) voor gebruik. Eten (ontbijt/lunch) is wel exact.",
+  "currency": "EUR",
+  "diet": {
+    "veg": { "nl": "vegetarisch", "en": "vegetarian", "icon": "🌿" },
+    "vegan": { "nl": "veganistisch", "en": "vegan", "icon": "🌱" }
+  },
+  "notes": {
+    "allergy": {
+      "nl": "Voedselallergie? In onze producten kunnen verschillende soorten allergenen aanwezig zijn. Heb je een vraag over de samenstelling van een product? Vraag het een medewerker.",
+      "en": "Food allergy? Our products may contain allergens. Ask our staff if you have any questions about the ingredients we use."
+    },
+    "diet": {
+      "nl": "Geen symbool = vegetarisch · 🌱 = veganistisch",
+      "en": "No symbol = vegetarian · 🌱 = vegan"
+    },
+    "payment": { "nl": "Alleen pinnen — geen contant geld", "en": "Cards only — no cash" }
+  },
+  "categories": [
+    {
+      "id": "ontbijt",
+      "nl": "Ontbijt", "en": "Breakfast",
+      "icon": "🥐",
+      "items": [
+        {
+          "id": "croissant", "nl": "Croissant", "en": "Croissant",
+          "desc": { "nl": "Vers, met of zonder jam", "en": "Fresh, with or without jam" },
+          "price": 3.45, "diet": ["veg"],
+          "options": [{ "id": "jam", "nl": "met jam", "en": "with jam", "price": 0.30 }]
+        },
+        {
+          "id": "pain-au-chocolat", "nl": "Pain au chocolat", "en": "Pain au chocolat",
+          "desc": { "nl": "Versgebakken", "en": "Freshly baked" },
+          "price": 3.75, "diet": ["vegan"]
+        },
+        {
+          "id": "granola-bowl", "nl": "Granola yogurt bowl", "en": "Granola yogurt bowl",
+          "desc": {
+            "nl": "Griekse yoghurt, huisgemaakte granola, fruit, honing",
+            "en": "Greek yogurt, home-made granola, fruit, honey"
+          },
+          "price": 7.75, "diet": ["veg"], "image": "assets/img/granola-bowl.jpg",
+          "options": [{ "id": "kokos", "nl": "met kokosyoghurt", "en": "with coconut yogurt", "price": 1.00 }]
+        }
+      ]
+    },
+    {
+      "id": "lunch",
+      "nl": "Lunch", "en": "Lunch",
+      "icon": "🥪",
+      "note": { "nl": "Vanaf 11h00", "en": "From 11h00" },
+      "items": [
+        {
+          "id": "tosti-kaas", "nl": "Tosti kaas, tomaat, pesto", "en": "Toastie cheese, tomato, pesto",
+          "desc": { "nl": "Onze klassieker", "en": "Our classic" },
+          "price": 6.80, "diet": ["veg"],
+          "options": [
+            { "id": "ketchup", "nl": "met ketchup", "en": "with ketchup", "price": 0.50 },
+            { "id": "truffelmayo", "nl": "met truffelmayo", "en": "with truffle mayo", "price": 0.50 }
+          ]
+        },
+        {
+          "id": "tosti-geitenkaas", "nl": "Tosti geitenkaas", "en": "Toastie goat cheese",
+          "desc": {
+            "nl": "Geitenkaas, pecannoten, rucola, honing",
+            "en": "Goat cheese, pecan, arugula, honey"
+          },
+          "price": 6.80, "diet": ["veg"],
+          "options": [
+            { "id": "ketchup", "nl": "met ketchup", "en": "with ketchup", "price": 0.50 },
+            { "id": "truffelmayo", "nl": "met truffelmayo", "en": "with truffle mayo", "price": 0.50 }
+          ]
+        },
+        {
+          "id": "wrap-falafel", "nl": "Wrap rode bieten falafel", "en": "Beetroot falafel wrap",
+          "desc": {
+            "nl": "Hummus, komkommer, gegrilde paprika, zongedroogde tomaatjes, rode ui, pecannoten en rucola mix",
+            "en": "Hummus, cucumber, grilled bell pepper, sun-dried tomatoes, red onion, pecan and mixed leaves"
+          },
+          "price": 11.25, "diet": ["vegan"]
+        },
+        {
+          "id": "wrap-vegakip", "nl": "Wrap krokante vegakip", "en": "Crispy plant-based chicken wrap",
+          "desc": {
+            "nl": "Honingmosterddressing, komkommer, tomaat, rode ui en rucola mix",
+            "en": "Honey mustard dressing, cucumber, tomato, red onion and mixed leaves"
+          },
+          "price": 11.25, "diet": ["veg"]
+        }
+      ]
+    },
+    {
+      "id": "warme-dranken",
+      "nl": "Warme drankjes", "en": "Hot drinks",
+      "icon": "☕",
+      "note": { "nl": "* kan ook iced besteld worden", "en": "* can also be ordered iced" },
+      "extras": [
+        { "id": "plantmelk", "nl": "Plantaardige melk (haver/erwt)", "en": "Plant-based milk (oat/pea)", "price": 0.50 },
+        { "id": "extra-shot", "nl": "Extra shot espresso", "en": "Extra shot of espresso", "price": 0.50 },
+        { "id": "smaakje", "nl": "Smaakje", "en": "Flavour shot", "price": 0.50 },
+        { "id": "slagroom", "nl": "Slagroom", "en": "Whipped cream", "price": 0.70 }
+      ],
+      "items": [
+        { "id": "espresso", "nl": "Espresso", "en": "Espresso", "price": 3.15, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "dubbele-espresso", "nl": "Dubbele espresso", "en": "Double espresso", "price": 4.70, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "americano", "nl": "Americano *", "en": "Americano *", "price": 3.60, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "cappuccino", "nl": "Cappuccino", "en": "Cappuccino", "price": 3.90, "priceCheck": true, "diet": ["veg"] },
+        { "id": "cortado", "nl": "Cortado", "en": "Cortado", "price": 3.60, "priceCheck": true, "diet": ["veg"] },
+        { "id": "flat-white", "nl": "Flat white", "en": "Flat white", "price": 4.10, "priceCheck": true, "diet": ["veg"] },
+        { "id": "latte", "nl": "Latte *", "en": "Latte *", "price": 4.20, "priceCheck": true, "diet": ["veg"] },
+        { "id": "latte-machiatto", "nl": "Latte machiatto", "en": "Latte macchiato", "price": 4.60, "priceCheck": true, "diet": ["veg"] },
+        {
+          "id": "thee", "nl": "Thee", "en": "Tea",
+          "desc": {
+            "nl": "Sencha, jasmijnparels, rooibos, earl grey, breakfastblend, oolong, witte thee",
+            "en": "Sencha, jasmine pearls, rooibos, earl grey, breakfast blend, oolong, white tea"
+          },
+          "price": 3.15, "priceCheck": true, "diet": ["vegan"]
+        },
+        { "id": "muntthee", "nl": "Verse muntthee", "en": "Fresh mint tea", "price": 3.90, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "gemberthee", "nl": "Verse gemberthee", "en": "Fresh ginger tea", "price": 3.90, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "chai-latte", "nl": "Chai latte", "en": "Chai latte", "price": 4.80, "priceCheck": true, "diet": ["veg"] },
+        { "id": "chocomel", "nl": "Warme chocomelk", "en": "Hot chocolate", "price": 4.20, "priceCheck": true, "diet": ["veg"] }
+      ]
+    },
+    {
+      "id": "koude-dranken",
+      "nl": "Koude drankjes", "en": "Cold drinks",
+      "icon": "🧊",
+      "items": [
+        { "id": "sap", "nl": "Appel- of perensap", "en": "Apple or pear juice", "desc": { "nl": "Van Schulp", "en": "By Schulp" }, "price": 3.50, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "jus", "nl": "Jus d'orange", "en": "Fresh orange juice", "price": 3.75, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "ice-tea", "nl": "Homemade ice tea", "en": "Homemade iced tea", "price": 3.40, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "smoothie", "nl": "Smoothie", "en": "Smoothie", "price": 4.75, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "frisdrank", "nl": "Frisdrank (div.)", "en": "Soft drinks (various)", "price": 3.40, "priceCheck": true, "diet": ["vegan"] },
+        { "id": "spa", "nl": "Spa blauw of rood", "en": "Still or sparkling water", "price": 3.00, "priceCheck": true, "diet": ["vegan"] }
+      ]
+    },
+    {
+      "id": "zoet",
+      "nl": "Zoet", "en": "Pastry",
+      "icon": "🍰",
+      "note": { "nl": "Vraag naar onze wisselende taart", "en": "Ask for our rotating cake" },
+      "items": [
+        { "id": "appeltaart", "nl": "Appeltaart", "en": "Dutch apple pie", "price": 4.90, "priceCheck": true, "diet": ["veg"], "image": "assets/img/pastry-table.jpg",
+          "options": [{ "id": "slagroom", "nl": "met slagroom", "en": "with whipped cream", "price": 0.70 }] },
+        { "id": "worteltaart", "nl": "Worteltaart", "en": "Carrot cake", "price": 4.90, "priceCheck": true, "diet": ["veg"],
+          "options": [{ "id": "slagroom", "nl": "met slagroom", "en": "with whipped cream", "price": 0.70 }] },
+        { "id": "cheesecake", "nl": "Cheesecake", "en": "Cheesecake", "price": 4.90, "priceCheck": true, "diet": ["veg"] },
+        { "id": "brownie", "nl": "Brownie of blondie", "en": "Brownie or blondie", "price": 4.20, "priceCheck": true, "diet": ["veg"] }
+      ]
+    }
+  ]
+}

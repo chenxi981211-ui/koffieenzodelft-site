@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="nl" data-lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menukaart | Koffie &amp; Zo Delft</title>
+<meta name="description" content="De digitale menukaart van Koffie &amp; Zo in Delft — koffie, lunch, taart en meer. Zit je aan tafel? Bestel direct vanaf je telefoon.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/fraunces-normal-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/karla-normal-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/menu.css">
+</head>
+<body class="page-menu">
+
+<a class="skip-link" href="#menu-main">
+  <span lang="nl">Naar de kaart</span><span lang="en">Skip to the menu</span>
+</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M13 20h18v10a9 9 0 0 1-9 9h0a9 9 0 0 1-9-9V20Z"/><path d="M31 23h4a4.5 4.5 0 0 1 0 9h-4"/><path d="M18 8c-1.6 2 1.6 3.4 0 5.4M24 7c-1.6 2 1.6 3.4 0 5.4M30 8c-1.6 2 1.6 3.4 0 5.4"/></g></svg>
+      </span>
+      <span class="brand__name">Koffie <em>&amp;</em> Zo</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Hoofdmenu">
+      <a href="index.html"><span lang="nl">Home</span><span lang="en">Home</span></a>
+      <a href="index.html#verhaal"><span lang="nl">Ons verhaal</span><span lang="en">Our story</span></a>
+      <a href="index.html#winkel"><span lang="nl">Vintage</span><span lang="en">Vintage</span></a>
+      <a href="index.html#contact"><span lang="nl">Contact</span><span lang="en">Contact</span></a>
+      <a href="menu.html?bestellen=1" class="nav__cta">
+        <span lang="nl">Bestel aan tafel</span><span lang="en">Order at your table</span>
+      </a>
+    </nav>
+
+    <div class="site-header__actions">
+      <div class="lang-switch" role="group" aria-label="Taal / Language">
+        <button type="button" data-set-lang="nl" class="is-active">NL</button>
+        <button type="button" data-set-lang="en">EN</button>
+      </div>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="menu-main">
+
+  <!-- ── menu head ────────────────────────────────────────── -->
+  <section class="menu-head">
+    <div class="menu-head__inner">
+      <p class="eyebrow"><span lang="nl">Menukaart</span><span lang="en">Menu</span></p>
+      <h1>
+        <span lang="nl">Wat wordt het <em>vandaag</em>?</span>
+        <span lang="en">What'll it be <em>today</em>?</span>
+      </h1>
+      <p class="menu-head__sub">
+        <span lang="nl">Lokaal gebrande koffie, verse lunch en taart van het huis. Zit je binnen? Tik op <strong>+</strong>
+          en bestel vanaf je eigen tafel.</span>
+        <span lang="en">Locally roasted coffee, fresh lunch and homemade cake. Sitting in? Tap <strong>+</strong>
+          and order from your own table.</span>
+      </p>
+
+      <div class="table-chip" data-table-chip hidden>
+        <span class="table-chip__label">
+          <span lang="nl">Je zit aan tafel</span><span lang="en">You're at table</span>
+        </span>
+        <strong data-table-number>—</strong>
+        <button type="button" class="table-chip__edit" data-change-table>
+          <span lang="nl">wijzigen</span><span lang="en">change</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── toolbar ──────────────────────────────────────────── -->
+  <div class="toolbar" id="toolbar">
+    <div class="toolbar__inner">
+      <div class="toolbar__search">
+        <label class="sr-only" for="menu-search">
+          <span lang="nl">Zoek in de kaart</span><span lang="en">Search the menu</span>
+        </label>
+        <span class="toolbar__search-icon" aria-hidden="true">🔎</span>
+        <input id="menu-search" type="search" autocomplete="off"
+               data-placeholder-nl="Zoek… bijv. cappuccino"
+               data-placeholder-en="Search… e.g. cappuccino">
+      </div>
+
+      <div class="chips" data-category-chips role="tablist" aria-label="Categorieën"></div>
+
+      <div class="chips chips--diet" role="group" aria-label="Filters">
+        <button type="button" class="chip chip--diet" data-diet="veg">
+          🌿 <span lang="nl">vegetarisch</span><span lang="en">vegetarian</span>
+        </button>
+        <button type="button" class="chip chip--diet" data-diet="vegan">
+          🌱 <span lang="nl">vegan</span><span lang="en">vegan</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── the menu itself ──────────────────────────────────── -->
+  <div class="menu-body">
+    <div class="menu-body__inner" data-menu-root aria-live="polite">
+      <p class="menu-loading"><span lang="nl">Kaart wordt geladen…</span><span lang="en">Loading the menu…</span></p>
+    </div>
+
+    <p class="menu-empty" data-menu-empty hidden>
+      <span lang="nl">Niets gevonden — probeer een ander woord.</span>
+      <span lang="en">Nothing found — try another word.</span>
+    </p>
+
+    <div class="menu-notes">
+      <p class="menu-notes__card" data-note="diet"></p>
+      <p class="menu-notes__card" data-note="allergy"></p>
+      <p class="menu-notes__card menu-notes__card--stamp" data-note="payment"></p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="brand__name">Koffie <em>&amp;</em> Zo</span>
+      <p>Peperstraat 17, 2611 CH Delft</p>
+    </div>
+    <div class="site-footer__col">
+      <h3><span lang="nl">Contact</span><span lang="en">Contact</span></h3>
+      <a href="mailto:info@koffieenzodelft.nl">info@koffieenzodelft.nl</a>
+    </div>
+    <div class="site-footer__col">
+      <h3><span lang="nl">Volg ons</span><span lang="en">Follow</span></h3>
+      <a href="https://www.instagram.com/koffieenzodelft" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div class="site-footer__col">
+      <h3><span lang="nl">Openingstijden</span><span lang="en">Hours</span></h3>
+      <a href="https://maps.app.goo.gl/7wuBDU6bThS6mnxq9" target="_blank" rel="noopener">Google Maps</a>
+    </div>
+  </div>
+  <p class="site-footer__bottom">
+    <span lang="nl">Tot koffie enz. · © 2026 Koffie &amp; Zo</span>
+    <span lang="en">The coffee's ready, see you soon. · © 2026 Koffie &amp; Zo</span>
+  </p>
+</footer>
+
+<!-- ── sticky order bar ───────────────────────────────────── -->
+<div class="order-bar" data-order-bar hidden>
+  <div class="order-bar__inner">
+    <div class="order-bar__meta">
+      <strong data-cart-count>0</strong>
+      <span data-cart-total>€ 0,00</span>
+    </div>
+    <button type="button" class="btn btn--primary" data-open-order>
+      <span lang="nl">Bestelling bekijken</span><span lang="en">Review order</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── order sheet ────────────────────────────────────────── -->
+<div class="sheet" data-sheet hidden>
+  <div class="sheet__backdrop" data-close-sheet></div>
+
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet__grip" aria-hidden="true"></div>
+
+    <!-- cart view -->
+    <div data-sheet-view="cart">
+      <header class="sheet__head">
+        <h2 id="sheet-title"><span lang="nl">Jouw bestelling</span><span lang="en">Your order</span></h2>
+        <button type="button" class="sheet__close" data-close-sheet aria-label="Sluiten">✕</button>
+      </header>
+
+      <ul class="cart" data-cart-list></ul>
+
+      <div class="cart__table">
+        <label for="table-input">
+          <span lang="nl">Tafelnummer</span><span lang="en">Table number</span>
+        </label>
+        <input id="table-input" type="number" min="1" max="99" inputmode="numeric" data-table-input placeholder="7">
+      </div>
+
+      <div class="cart__note">
+        <label for="order-note">
+          <span lang="nl">Iets erbij te vermelden?</span><span lang="en">Anything we should know?</span>
+        </label>
+        <textarea id="order-note" rows="2" data-order-note
+                  data-placeholder-nl="Bijv. havermelk, glutenvrij, of &quot;graag samen serveren&quot;"
+                  data-placeholder-en="E.g. oat milk, gluten-free, or &quot;please serve together&quot;"></textarea>
+      </div>
+
+      <div class="cart__total">
+        <span><span lang="nl">Totaal</span><span lang="en">Total</span></span>
+        <strong data-cart-total>€ 0,00</strong>
+      </div>
+
+      <button type="button" class="btn btn--primary btn--block" data-submit-order>
+        <span lang="nl">Bestelling doorgeven</span><span lang="en">Place order</span>
+      </button>
+      <p class="cart__small">
+        <span lang="nl">Je betaalt straks aan de bar — alleen pinnen.</span>
+        <span lang="en">You pay at the counter afterwards — cards only.</span>
+      </p>
+    </div>
+
+    <!-- confirmation view -->
+    <div data-sheet-view="done" hidden>
+      <div class="ticket">
+        <p class="ticket__badge"><span lang="nl">Doorgegeven</span><span lang="en">Sent</span></p>
+        <h2><span lang="nl">Dank je wel!</span><span lang="en">Thank you!</span></h2>
+        <p class="ticket__code" data-order-code>KZ-000</p>
+        <p class="ticket__line">
+          <span lang="nl">Tafel</span><span lang="en">Table</span>
+          <strong data-ticket-table>—</strong>
+        </p>
+        <ol class="ticket__steps">
+          <li class="is-done"><span lang="nl">Ontvangen</span><span lang="en">Received</span></li>
+          <li class="is-active"><span lang="nl">Wordt gezet</span><span lang="en">Being made</span></li>
+          <li><span lang="nl">Onderweg naar je tafel</span><span lang="en">On its way to your table</span></li>
+        </ol>
+        <p class="ticket__demo">
+          <span lang="nl">Demo: deze bestelling wordt nog niet naar de bar verstuurd. Koppel hier je kassa- of
+            bestelsysteem aan.</span>
+          <span lang="en">Demo: this order isn't sent to the counter yet. Hook up your POS or ordering system here.</span>
+        </p>
+        <button type="button" class="btn btn--ghost btn--block" data-close-sheet>
+          <span lang="nl">Terug naar de kaart</span><span lang="en">Back to the menu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── options dialog ─────────────────────────────────────── -->
+<div class="sheet sheet--options" data-options hidden>
+  <div class="sheet__backdrop" data-close-options></div>
+  <div class="sheet__panel sheet__panel--sm" role="dialog" aria-modal="true" aria-labelledby="options-title">
+    <div class="sheet__grip" aria-hidden="true"></div>
+    <header class="sheet__head">
+      <h2 id="options-title" data-options-title></h2>
+      <button type="button" class="sheet__close" data-close-options aria-label="Sluiten">✕</button>
+    </header>
+    <div data-options-list></div>
+    <button type="button" class="btn btn--primary btn--block" data-confirm-options>
+      <span lang="nl">Toevoegen</span><span lang="en">Add</span>
+      <span data-options-price></span>
+    </button>
+  </div>
+</div>
+
+<div class="toast" data-toast hidden aria-live="polite"></div>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/menu.js"></script>
+</body>
+</html>
