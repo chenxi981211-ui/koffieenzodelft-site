@@ -329,69 +329,7 @@ html[data-lang="en"] [lang="nl"] { display: none; }
 .nav-toggle[aria-expanded="true"] .nav-toggle__bars::after { transform: translateX(-50%) translateY(-6px) rotate(-45deg); }
 
 /* ── hero ───────────────────────────────────────────────── */
-.hero {
-  position: relative;
-  z-index: 2;
-  max-width: var(--maxw);
-  margin: clamp(1.5rem, 4vw, 3rem) auto 0;
-  padding: 0 var(--gutter) clamp(3rem, 7vw, 6rem);
-}
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -6%;
-  left: 50%;
-  width: min(1100px, 130%);
-  aspect-ratio: 1;
-  transform: translateX(-50%);
-  z-index: -1;
-  pointer-events: none;
-  opacity: .5;
-  background: repeating-conic-gradient(from 4deg,
-    var(--bone) 0deg 2.4deg, transparent 2.4deg 9deg);
-  mask-image: radial-gradient(circle, #000 12%, transparent 68%);
-  -webkit-mask-image: radial-gradient(circle, #000 12%, transparent 68%);
-}
 
-.hero__photo {
-  border: 1px solid var(--hairline);
-  border-radius: 260px 260px var(--radius) var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  background: var(--paper-deep);
-}
-.hero__photo img {
-  width: 100%;
-  height: clamp(320px, 52vw, 560px);
-  object-fit: cover;
-  object-position: center 58%;
-  filter: saturate(.94) contrast(1.03);
-}
-.hero__card {
-  position: relative;
-  margin: -3.5rem auto 0;
-  max-width: 760px;
-  background: var(--cream);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-hard);
-  padding: clamp(1.5rem, 4vw, 2.6rem);
-  text-align: center;
-}
-.hero__tagline {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: .04em;
-  color: var(--ink-soft);
-}
-.hero__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .8rem;
-  justify-content: center;
-  margin-top: 1.4rem;
-}
 
 /* rotating stamp */
 .stamp {
@@ -890,4 +828,225 @@ html[data-lang="en"] [lang="nl"] { display: none; }
   font-style: italic;
   text-align: center;
   color: var(--ink-soft);
+}
+
+/* ── hero: copy on the left, a composed spread on the right ── */
+.hero {
+  position: relative;
+  z-index: 2;
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter) clamp(3rem, 7vw, 5.5rem);
+  background: linear-gradient(178deg, var(--delft-tint) 0%, rgba(232, 240, 244, .45) 46%, var(--paper) 82%);
+  overflow: hidden;
+}
+.hero__inner {
+  position: relative;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.02fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.hero__copy h1 {
+  font-size: clamp(2.4rem, 1.3rem + 4.4vw, 4.3rem);
+  margin-bottom: .35em;
+}
+.hero__tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  margin-bottom: 1.1rem;
+}
+.hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.4rem; }
+.hero__facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1.3rem;
+  padding: 0;
+  margin: 1.8rem 0 0;
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.hero__facts li { display: flex; align-items: center; gap: .45rem; }
+.hero__facts li::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--delft-deep);
+  opacity: .8;
+}
+
+/* the logo's own sunburst, echoed faintly behind the photo */
+.hero__art { position: relative; }
+.hero__art::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 150%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: .45;
+  background: repeating-conic-gradient(from 6deg,
+    var(--bone) 0deg 2.2deg, transparent 2.2deg 9deg);
+  mask-image: radial-gradient(circle, #000 18%, transparent 66%);
+  -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 66%);
+  pointer-events: none;
+}
+.hero__arch {
+  position: relative;
+  margin: 0;
+  border-radius: 250px 250px 22px 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  background: var(--paper-deep);
+}
+.hero__arch img {
+  width: 100%;
+  height: clamp(340px, 44vw, 540px);
+  object-fit: cover;
+  object-position: center 58%;
+  filter: saturate(.95) contrast(1.02);
+  animation: ken-burns 22s ease-in-out infinite alternate;
+}
+@keyframes ken-burns { to { transform: scale(1.07); } }
+.hero__inset {
+  position: absolute;
+  left: -5%;
+  bottom: -7%;
+  width: 36%;
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 7px solid var(--paper);
+  box-shadow: var(--shadow-hard);
+  z-index: 2;
+}
+.hero__inset img { width: 100%; height: 100%; object-fit: cover; }
+.stamp--hero { right: -3%; top: -6%; z-index: 3; }
+
+.hours__status--hero {
+  display: inline-flex;
+  margin: 0;
+  padding: .42rem .95rem;
+  background: var(--cream);
+  border: 1px solid rgba(71, 117, 140, .3);
+  border-radius: 999px;
+  box-shadow: var(--shadow-card);
+  font-size: .88rem;
+}
+
+/* ── rating badge ───────────────────────────────────────── */
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  margin: -.6rem 0 1.6rem;
+  font-size: .95rem;
+  color: var(--ink-soft);
+}
+.rating strong { font-family: var(--display); font-size: 1.3rem; color: var(--ink); }
+.rating__stars { color: var(--butter); letter-spacing: .08em; font-size: 1.1rem; }
+
+/* ── contact ────────────────────────────────────────────── */
+.contact {
+  position: relative;
+  z-index: 2;
+  background: var(--delft-tint);
+  border-top: 1px solid rgba(71, 117, 140, .25);
+  padding: clamp(3rem, 7vw, 5rem) var(--gutter);
+}
+.contact__inner { max-width: 940px; margin: 0 auto; }
+.contact__card {
+  display: grid;
+  grid-template-columns: minmax(200px, .62fr) 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  background: var(--cream);
+  border: 1px solid rgba(71, 117, 140, .28);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-hard);
+  padding: clamp(1.4rem, 3.5vw, 2.4rem);
+}
+.contact__photo {
+  margin: 0;
+  border-radius: 160px 160px 16px 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.contact__photo img { width: 100%; height: clamp(220px, 26vw, 330px); object-fit: cover; filter: grayscale(.15); }
+.contact__body h2 { margin-bottom: .3em; }
+.contact__body > p { color: var(--ink-soft); max-width: 46ch; }
+
+.contact__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+  margin-top: 1.2rem;
+}
+.field { display: grid; gap: .3rem; }
+.field--wide { grid-column: 1 / -1; }
+.field label {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.field input, .field textarea {
+  width: 100%;
+  padding: .65rem .8rem;
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  background: var(--paper);
+  font: 400 .98rem var(--text);
+  color: var(--ink);
+  resize: vertical;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--delft-deep);
+  box-shadow: 0 0 0 3px rgba(71, 117, 140, .18);
+}
+.contact__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.contact__status { margin: 0; font-size: .88rem; color: var(--ink-soft); }
+.contact__status[data-state="error"] { color: var(--terracotta-dark); font-weight: 600; }
+.contact__status[data-state="sent"] { color: var(--sage); font-weight: 600; }
+.contact__alt { margin: 1.2rem 0 0; font-size: .88rem; color: var(--ink-soft); }
+.contact__alt a { font-weight: 600; }
+
+/* ── Instagram on a soft blue band, as on their own site ── */
+.insta--band {
+  background: var(--delft);
+  border-top: 1px solid rgba(71, 117, 140, .3);
+  border-bottom: 1px solid rgba(71, 117, 140, .3);
+}
+.insta--band .eyebrow { color: var(--brown); }
+.insta--band .section-head h2 a { border-bottom-color: var(--cream); }
+
+@media (max-width: 900px) {
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__art { order: -1; }
+  .hero__inset { width: 30%; left: 0; bottom: -6%; }
+  .contact__card { grid-template-columns: 1fr; }
+  .contact__photo { border-radius: 140px 140px 16px 16px; }
+  .contact__photo img { height: 200px; }
+}
+@media (max-width: 560px) {
+  .contact__form { grid-template-columns: 1fr; }
+  .hero__facts { gap: .35rem 1rem; font-size: .7rem; }
 }

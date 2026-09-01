@@ -1,9 +1,26 @@
 {
-  "_note": "Quotes from guests, shown in the 'wat gasten zeggen' section. Empty = the section stays hidden. Keep each quote short and credit the reviewer by first name; ask before reusing anyone's photo.",
+  "_note": "Short quotes from guests. Keep them brief and credited. rating.score/count show a summary badge — leave them null if you don't want to state a number.",
   "source": {
-    "nl": "Reviews op Google",
-    "en": "Reviews on Google",
+    "nl": "Google reviews",
+    "en": "Google reviews",
     "url": "https://maps.app.goo.gl/7wuBDU6bThS6mnxq9"
   },
-  "quotes": []
+  "rating": { "score": null, "count": null },
+  "quotes": [
+    {
+      "text": "Gracious & warm hosts, friendly service, scrumptious pastries, delicious coffee.",
+      "name": "Google review",
+      "lang": "en"
+    },
+    {
+      "text": "The owner was very kind and there were lots of vegan and gluten-free options.",
+      "name": "Google review",
+      "lang": "en"
+    },
+    {
+      "text": "Wonderful staff, delicious apple pie, beautiful design and great location.",
+      "name": "Google review",
+      "lang": "en"
+    }
+  ]
 }

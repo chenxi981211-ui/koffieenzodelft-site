@@ -82,37 +82,53 @@
 
   <!-- ── hero ─────────────────────────────────────────────── -->
   <section class="hero">
-    <div class="hero__photo">
-      <img src="assets/img/storefront.jpg" width="1600" height="1100"
-           alt="De pui van Koffie &amp; Zo aan de Peperstraat in Delft met vlaggetjes en terrasstoelen">
-    </div>
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">
+          <span lang="nl">Sinds 2015 · Peperstraat 17, Delft</span>
+          <span lang="en">Since 2015 · Peperstraat 17, Delft</span>
+        </p>
+        <h1>
+          <span lang="nl">Koffie, lunch <em>&amp;</em> iets moois<br>om mee te nemen</span>
+          <span lang="en">Coffee, lunch <em>&amp;</em> something lovely<br>to take home</span>
+        </h1>
+        <p class="hero__tagline">Coffee Shop &nbsp;·&nbsp; Lunch Room &nbsp;·&nbsp; Vintage Store</p>
 
-    <div class="hero__card reveal">
-      <p class="eyebrow">
-        <span lang="nl">Sinds 2015 · Peperstraat 17, Delft</span>
-        <span lang="en">Since 2015 · Peperstraat 17, Delft</span>
-      </p>
-      <h1>
-        <span lang="nl">De leukste koffiezaak <em>&amp;</em> cadeauwinkel van Delft</span>
-        <span lang="en">Delft's coziest coffee shop <em>&amp;</em> gift store</span>
-      </h1>
-      <p class="hero__tagline">Coffee Shop &nbsp;·&nbsp; Lunch Room &nbsp;·&nbsp; Vintage Store</p>
-      <div class="hero__cta">
-        <a class="btn btn--primary" href="menu.html">
-          <span lang="nl">Bekijk de menukaart</span><span lang="en">See the menu</span>
-        </a>
-        <a class="btn btn--ghost" href="menu.html?bestellen=1">
-          <span lang="nl">Bestel aan tafel</span><span lang="en">Order at your table</span>
-        </a>
+        <p class="hours__status hours__status--hero" data-hours-status aria-live="polite"></p>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="menu.html">
+            <span lang="nl">Bekijk de menukaart</span><span lang="en">See the menu</span>
+          </a>
+          <a class="btn btn--ghost" href="menu.html?bestellen=1">
+            <span lang="nl">Bestel aan tafel</span><span lang="en">Order at your table</span>
+          </a>
+        </div>
+
+        <ul class="hero__facts">
+          <li><span lang="nl">Lokaal gebrande koffie</span><span lang="en">Locally roasted coffee</span></li>
+          <li><span lang="nl">Alleen pinnen</span><span lang="en">Cards only</span></li>
+          <li><span lang="nl">Laptopvrij</span><span lang="en">Laptop-free</span></li>
+        </ul>
       </div>
-    </div>
 
-    <div class="stamp stamp--hero" aria-hidden="true">
-      <svg viewBox="0 0 120 120">
-        <defs><path id="ring" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
-        <text class="stamp__text"><textPath href="#ring" startOffset="0">it takes a village · it takes a village · </textPath></text>
-      </svg>
-      <span class="stamp__core">10<small>jaar</small></span>
+      <div class="hero__art">
+        <figure class="hero__arch">
+          <img src="assets/img/storefront.jpg" width="1600" height="1100"
+               alt="De pui van Koffie &amp; Zo aan de Peperstraat in Delft met vlaggetjes en terrasstoelen">
+        </figure>
+        <figure class="hero__inset">
+          <img src="assets/img/coffee-pastry.jpg" width="1200" height="1200" loading="lazy"
+               alt="Twee koffies met vers gebak op tafel">
+        </figure>
+        <div class="stamp stamp--hero" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs><path id="ring" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+            <text class="stamp__text"><textPath href="#ring" startOffset="0">it takes a village · it takes a village · </textPath></text>
+          </svg>
+          <span class="stamp__core">10<small>jaar</small></span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -311,7 +327,7 @@
   </section>
 
   <!-- ── instagram ────────────────────────────────────────── -->
-  <section class="insta" aria-label="Instagram">
+  <section class="insta insta--band" aria-label="Instagram">
     <div class="section-head reveal">
       <p class="eyebrow">
         <span lang="nl">Volg ons</span><span lang="en">Follow us</span>
@@ -337,6 +353,7 @@
         <span lang="en">From the <em>reviews</em></span>
       </h2>
     </div>
+    <p class="rating" data-reviews-rating hidden></p>
     <div class="voices__grid" data-reviews-list></div>
     <p class="voices__cta reveal">
       <a class="btn btn--ghost" data-reviews-link href="https://maps.app.goo.gl/7wuBDU6bThS6mnxq9"
@@ -347,7 +364,7 @@
   </section>
 
   <!-- ── find us ──────────────────────────────────────────── -->
-  <section class="find" id="contact">
+  <section class="find" id="vinden">
     <div class="find__inner">
       <div class="find__text reveal">
         <p class="eyebrow"><span lang="nl">Hier vind je ons</span><span lang="en">This is where you'll find us</span></p>
@@ -387,6 +404,61 @@
       </div>
     </div>
   </section>
+
+  <!-- ── contact ──────────────────────────────────────────── -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__card reveal">
+        <figure class="contact__photo">
+          <img src="assets/img/phone-laugh.jpg" width="1200" height="900" loading="lazy"
+               alt="Lachend aan de vintage telefoon bij Koffie &amp; Zo">
+        </figure>
+        <div class="contact__body">
+          <h2>
+            <span lang="nl">Zeg het maar</span>
+            <span lang="en">What's up?</span>
+          </h2>
+          <p>
+            <span lang="nl">Een vraag over de kaart, een groep aanmelden of gewoon even hallo —
+              schrijf het hier en het komt in onze inbox.</span>
+            <span lang="en">A question about the menu, booking for a group, or just saying hello —
+              write it here and it lands in our inbox.</span>
+          </p>
+
+          <form class="contact__form" data-contact-form novalidate>
+            <div class="field">
+              <label for="contact-name"><span lang="nl">Je naam</span><span lang="en">Your name</span></label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="contact-email"><span lang="nl">E-mail</span><span lang="en">Email</span></label>
+              <input id="contact-email" name="email" type="email" autocomplete="email">
+            </div>
+            <div class="field field--wide">
+              <label for="contact-message"><span lang="nl">Bericht</span><span lang="en">Message</span></label>
+              <textarea id="contact-message" name="message" rows="4" required></textarea>
+            </div>
+            <div class="contact__actions">
+              <button type="submit" class="btn btn--primary">
+                <span lang="nl">Versturen</span><span lang="en">Send</span>
+              </button>
+              <p class="contact__status" data-contact-status aria-live="polite"></p>
+            </div>
+          </form>
+
+          <p class="contact__alt">
+            <span lang="nl">Liever direct mailen?</span><span lang="en">Rather email us directly?</span>
+            <a href="mailto:info@koffieenzodelft.nl">info@koffieenzodelft.nl</a>
+            ·
+            <a href="https://www.instagram.com/koffieenzodelft" target="_blank" rel="noopener">Instagram</a>
+            ·
+            <a href="https://www.facebook.com/KoffieEnZoDelft" target="_blank" rel="noopener">Facebook</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ── footer ─────────────────────────────────────────────── -->

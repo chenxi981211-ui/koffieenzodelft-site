@@ -111,8 +111,8 @@
 
   function renderHours(data) {
     var list = document.querySelector('[data-hours-list]');
-    var status = document.querySelector('[data-hours-status]');
-    if (!list && !status) return;
+    var statuses = document.querySelectorAll('[data-hours-status]');
+    if (!list && !statuses.length) return;
 
     var now = new Date();
     var today = now.getDay();
@@ -135,7 +135,7 @@
       }).join('');
     }
 
-    if (!status) return;
+    if (!statuses.length) return;
     var t = byDay[today];
     var open = t && !t.closed && nowMin >= minutes(t.open) && nowMin < minutes(t.close);
     var soon = t && !t.closed && !open && nowMin < minutes(t.open);
@@ -159,9 +159,11 @@
       nl = next ? 'Nu gesloten — ' + next.nl + ' weer open om ' + next.open : 'Nu gesloten';
       en = next ? 'Closed now — open again ' + next.en + ' at ' + next.open : 'Closed now';
     }
-    status.dataset.state = state;
-    status.innerHTML = '<span class="hours__dot" aria-hidden="true"></span>' +
-      '<span lang="nl">' + nl + '</span><span lang="en">' + en + '</span>';
+    statuses.forEach(function (status) {
+      status.dataset.state = state;
+      status.innerHTML = '<span class="hours__dot" aria-hidden="true"></span>' +
+        '<span lang="nl">' + nl + '</span><span lang="en">' + en + '</span>';
+    });
   }
 
   loadData('hours-data', 'data/hours.json').then(renderHours).catch(function (e) {
@@ -190,12 +192,86 @@
 
     var link = document.querySelector('[data-reviews-link]');
     if (link && data.source && data.source.url) link.href = data.source.url;
+
+    // a rating badge, but only if a real number was supplied
+    var badge = document.querySelector('[data-reviews-rating]');
+    var rating = data.rating || {};
+    if (badge && rating.score) {
+      var full = Math.round(rating.score);
+      var stars = '';
+      for (var i = 1; i <= 5; i++) stars += i <= full ? '\u2605' : '\u2606';
+      badge.innerHTML = '<span class="rating__stars" aria-hidden="true">' + stars + '</span>' +
+        '<strong>' + String(rating.score).replace('.', ',') + '</strong>' +
+        (rating.count ? '<span class="rating__count">' +
+          '<span lang="nl">uit ' + rating.count + ' reviews</span>' +
+          '<span lang="en">from ' + rating.count + ' reviews</span></span>' : '');
+      badge.hidden = false;
+    }
     section.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
   }
 
   loadData('reviews-data', 'data/reviews.json').then(renderReviews).catch(function (e) {
     console.warn('reviews', e);
   });
+
+
+  /* ── contact form ─────────────────────────────────────────
+     No server behind this site, so the form composes the message and hands
+     it to the visitor's own mail app. Set data-endpoint on the form to POST
+     it somewhere instead (Formspree, a worker, your own inbox service). */
+  var contactForm = document.querySelector('[data-contact-form]');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = new FormData(contactForm);
+      var name = (data.get('name') || '').toString().trim();
+      var email = (data.get('email') || '').toString().trim();
+      var message = (data.get('message') || '').toString().trim();
+      var status = contactForm.querySelector('[data-contact-status]');
+      var nl = document.documentElement.getAttribute('data-lang') === 'nl';
+
+      if (!name || !message) {
+        status.textContent = nl
+          ? 'Vul je naam en een bericht in, dan komt het aan.'
+          : 'Add your name and a message and it will reach us.';
+        status.dataset.state = 'error';
+        return;
+      }
+
+      var endpoint = contactForm.dataset.endpoint;
+      if (endpoint) {
+        status.dataset.state = 'sending';
+        status.textContent = nl ? 'Versturen…' : 'Sending…';
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        }).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          contactForm.reset();
+          status.dataset.state = 'sent';
+          status.textContent = nl
+            ? 'Dank je! We lezen het en mailen je terug.'
+            : 'Thank you! We read it and will email you back.';
+        }).catch(function () {
+          status.dataset.state = 'error';
+          status.textContent = nl
+            ? 'Versturen lukte niet — mail ons gerust op info@koffieenzodelft.nl.'
+            : 'That did not send — please email us at info@koffieenzodelft.nl.';
+        });
+        return;
+      }
+
+      var subject = (nl ? 'Bericht via de site — ' : 'Message from the site — ') + name;
+      var body = message + '\n\n— ' + name + (email ? ' (' + email + ')' : '');
+      window.location.href = 'mailto:info@koffieenzodelft.nl?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      status.dataset.state = 'sent';
+      status.textContent = nl
+        ? 'Je mailprogramma opent met het bericht erin — even op verzenden drukken.'
+        : 'Your mail app opens with the message ready — just hit send.';
+    });
+  }
 
   /* ── the map loads only when asked, so Google isn't called on arrival ── */
   document.addEventListener('click', function (e) {

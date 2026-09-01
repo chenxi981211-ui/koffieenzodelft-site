@@ -148,17 +148,19 @@
 
   function itemCard(item) {
     var qty = qtyOf(item.id);
+    // name … dotted leader … price, the way a printed card sets it
     return '<article class="item' + (qty ? ' is-in-cart' : '') + '" data-item="' + item.id + '">' +
-      '<h3 class="item__name">' +
-        '<span lang="nl">' + item.nl + '</span><span lang="en">' + item.en + '</span>' +
-        dietIcons(item) +
-      '</h3>' +
-      '<span class="item__price">' + money(item.price) +
-        (item.priceCheck ? '' : '') +
-      '</span>' +
+      '<div class="item__line">' +
+        '<h3 class="item__name">' +
+          '<span lang="nl">' + item.nl + '</span><span lang="en">' + item.en + '</span>' +
+          dietIcons(item) +
+        '</h3>' +
+        '<span class="item__leader" aria-hidden="true"></span>' +
+        '<span class="item__price">' + money(item.price) + '</span>' +
+        '<div class="item__control"></div>' +
+      '</div>' +
       (item.desc ? '<p class="item__desc">' +
         '<span lang="nl">' + item.desc.nl + '</span><span lang="en">' + item.desc.en + '</span></p>' : '') +
-      '<div class="item__control"></div>' +
     '</article>';
   }
 
