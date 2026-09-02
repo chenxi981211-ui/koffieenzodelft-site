@@ -19,8 +19,8 @@
       "en": "Food allergy? Our products may contain allergens. Ask our staff if you have any questions about the ingredients we use."
     },
     "diet": {
-      "nl": "Geen symbool = vegetarisch · 🌱 = veganistisch",
-      "en": "No symbol = vegetarian · 🌱 = vegan"
+      "nl": "Geen symbool = vegetarisch · {vegan} = veganistisch",
+      "en": "No symbol = vegetarian · {vegan} = vegan"
     },
     "payment": {
       "nl": "Alleen pinnen — geen contant geld",

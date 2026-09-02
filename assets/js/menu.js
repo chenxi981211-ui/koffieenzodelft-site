@@ -217,13 +217,14 @@
     }, 0);
   }
 
+  function dietBadge(label) {
+    return '<span class="diet-badge" title="' + label + '" aria-label="' + label + '">' +
+      icon('leaf') + '<span>vg</span></span>';
+  }
+
   function dietIcons(item) {
     return (item.diet || []).filter(function (d) { return d === 'vegan'; })
-      .map(function (d) {
-        var label = t(state.menu.diet[d]);
-        return '<span class="item__diet" title="' + label + '" aria-label="' + label + '">' +
-          icon('leaf') + '</span>';
-      }).join('');
+      .map(function () { return dietBadge(t(state.menu.diet.vegan)); }).join('');
   }
 
   function renderMenu() {
@@ -307,7 +308,9 @@
       var el = $('[data-note="' + key + '"]');
       if (!el) return;
       var note = state.menu.notes[key];
-      el.innerHTML = '<span lang="nl">' + note.nl + '</span><span lang="en">' + note.en + '</span>';
+      var badge = dietBadge(t(state.menu.diet.vegan));
+      el.innerHTML = '<span lang="nl">' + note.nl.replace('{vegan}', badge) + '</span>' +
+        '<span lang="en">' + note.en.replace('{vegan}', badge) + '</span>';
     });
   }
 
