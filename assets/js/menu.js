@@ -30,13 +30,41 @@
   }
 
 
+  var SOLID_ICONS = ['croissant', 'coffeepot', 'teaset', 'drinkjar', 'cake', 'breakfastcup'];
+
   function icon(name, cls) {
-    return '<svg class="' + (cls || 'ico') + '" aria-hidden="true"><use href="#i-' + name + '"></use></svg>';
+    var solid = SOLID_ICONS.indexOf(name) !== -1 ? ' ico--solid' : '';
+    return '<svg class="' + (cls || 'ico') + solid + '" aria-hidden="true">' +
+      '<use href="#i-' + name + '"></use></svg>';
   }
 
   function lang() { return document.documentElement.getAttribute('data-lang') || 'nl'; }
   function t(obj) { return obj ? (obj[lang()] || obj.nl || obj.en || '') : ''; }
   function money(n) { return '€ ' + n.toFixed(2).replace('.', ','); }
+
+  function priceLabel(item) {
+    if (item.price === null || item.price === undefined) {
+      return '<span class="item__ask"><span lang="nl">vraag ons</span>' +
+        '<span lang="en">ask us</span></span>';
+    }
+    if (item.variants && item.variants.length > 1) {
+      var lo = item.variants[0].price;
+      var hi = item.variants[item.variants.length - 1].price;
+      if (lo !== hi) return money(lo) + ' / ' + money(hi);
+    }
+    return money(item.price);
+  }
+
+  function basePrice(item, line) {
+    if (item.variants && item.variants.length) {
+      var chosen = null;
+      (line && line.variant ? item.variants : []).forEach(function (v) {
+        if (v.id === line.variant) chosen = v;
+      });
+      return (chosen || item.variants[0]).price;
+    }
+    return item.price || 0;
+  }
 
   /* ── boot ─────────────────────────────────────────────── */
   fetch('data/menu.json')
@@ -266,7 +294,7 @@
           dietIcons(item) +
         '</h3>' +
         '<span class="item__leader" aria-hidden="true"></span>' +
-        '<span class="item__price">' + money(item.price) + '</span>' +
+        '<span class="item__price">' + priceLabel(item) + '</span>' +
         '<div class="item__control"></div>' +
       '</div>' +
       (item.desc ? '<p class="item__desc">' +
@@ -290,6 +318,11 @@
       var slot = $('.item__control', card);
       card.classList.toggle('is-in-cart', qty > 0);
       if (!slot) return;
+      var item = findItem(id);
+      if (item && (item.price === null || item.price === undefined)) {
+        slot.outerHTML = '<span class="item__control item__control--none"></span>';
+        return;
+      }
       if (qty > 0) {
         slot.outerHTML = '<div class="item__stepper item__control">' +
           '<button type="button" data-dec="' + id + '" aria-label="Eén minder">−</button>' +
@@ -330,7 +363,7 @@
       var opt = (item.options || []).filter(function (o) { return o.id === optId; })[0];
       return sum + (opt ? opt.price : 0);
     }, 0);
-    return (item.price + extra) * line.qty;
+    return (basePrice(item, line) + extra) * line.qty;
   }
 
   function cartTotal() {
@@ -340,13 +373,14 @@
     return state.cart.reduce(function (sum, line) { return sum + line.qty; }, 0);
   }
 
-  function addToCart(id, options) {
-    var key = JSON.stringify((options || []).slice().sort());
+  function addToCart(id, options, variant) {
+    var key = JSON.stringify((options || []).slice().sort()) + '|' + (variant || '');
     var existing = state.cart.filter(function (line) {
-      return line.id === id && JSON.stringify((line.options || []).slice().sort()) === key;
+      return line.id === id &&
+        JSON.stringify((line.options || []).slice().sort()) + '|' + (line.variant || '') === key;
     })[0];
     if (existing) existing.qty += 1;
-    else state.cart.push({ id: id, qty: 1, options: options || [] });
+    else state.cart.push({ id: id, qty: 1, options: options || [], variant: variant || null });
     persist();
     toast(lang() === 'nl' ? 'Toegevoegd' : 'Added');
   }
@@ -398,7 +432,12 @@
       var opts = (line.options || []).map(function (optId) {
         var opt = (item.options || []).filter(function (o) { return o.id === optId; })[0];
         return opt ? t(opt) : '';
-      }).filter(Boolean).join(', ');
+      }).filter(Boolean);
+      if (line.variant) {
+        var v = (item.variants || []).filter(function (x) { return x.id === line.variant; })[0];
+        if (v) opts.unshift(t(v));
+      }
+      opts = opts.join(', ');
 
       return '<li class="cart__row">' +
         '<span class="cart__name"><span lang="nl">' + item.nl + '</span><span lang="en">' + item.en + '</span></span>' +
@@ -415,17 +454,30 @@
 
   /* ── options dialog ───────────────────────────────────── */
   function openOptions(item) {
-    state.pending = { id: item.id, options: [] };
+    var variants = item.variants || [];
+    state.pending = { id: item.id, options: [], variant: variants.length ? variants[0].id : null };
     var dialog = $('[data-options]');
     $('[data-options-title]').innerHTML =
       '<span lang="nl">' + item.nl + '</span><span lang="en">' + item.en + '</span>';
-    $('[data-options-list]').innerHTML = item.options.map(function (opt) {
+
+    var html = '';
+    if (variants.length) {
+      html += '<div class="option-group">' + variants.map(function (v, i) {
+        return '<label class="option option--variant">' +
+          '<input type="radio" name="kz-variant" value="' + v.id + '"' + (i === 0 ? ' checked' : '') + '>' +
+          '<span><span lang="nl">' + v.nl + '</span><span lang="en">' + v.en + '</span></span>' +
+          '<span class="option__price">' + money(v.price) + '</span>' +
+        '</label>';
+      }).join('') + '</div>';
+    }
+    html += (item.options || []).map(function (opt) {
       return '<label class="option">' +
         '<input type="checkbox" value="' + opt.id + '">' +
         '<span><span lang="nl">' + opt.nl + '</span><span lang="en">' + opt.en + '</span></span>' +
-        '<span class="option__price">+' + money(opt.price) + '</span>' +
+        '<span class="option__price">' + (opt.price ? '+' + money(opt.price) : '<span lang="nl">gratis</span><span lang="en">free</span>') + '</span>' +
       '</label>';
     }).join('');
+    $('[data-options-list]').innerHTML = html;
     updateOptionsPrice();
     dialog.hidden = false;
     document.body.style.overflow = 'hidden';
@@ -435,10 +487,11 @@
     var item = findItem(state.pending.id);
     if (!item) return;
     var extra = state.pending.options.reduce(function (sum, optId) {
-      var opt = item.options.filter(function (o) { return o.id === optId; })[0];
+      var opt = (item.options || []).filter(function (o) { return o.id === optId; })[0];
       return sum + (opt ? opt.price : 0);
     }, 0);
-    $('[data-options-price]').textContent = '· ' + money(item.price + extra);
+    $('[data-options-price]').textContent =
+      '· ' + money(basePrice(item, state.pending) + extra);
   }
 
   function closeOptions() {
@@ -582,7 +635,9 @@
 
     if ((el = e.target.closest('[data-add]'))) {
       var item = findItem(el.dataset.add);
-      if (item && item.options && item.options.length) openOptions(item);
+      if (!item || item.price === null || item.price === undefined) return;
+      var needsChoice = (item.options && item.options.length) || (item.variants && item.variants.length);
+      if (needsChoice) openOptions(item);
       else addToCart(el.dataset.add, []);
       return;
     }
@@ -603,7 +658,7 @@
     }
 
     if (e.target.closest('[data-confirm-options]')) {
-      addToCart(state.pending.id, state.pending.options);
+      addToCart(state.pending.id, state.pending.options, state.pending.variant);
       closeOptions();
       return;
     }
@@ -639,7 +694,10 @@
   document.addEventListener('change', function (e) {
     var box = e.target.closest('[data-options-list] input');
     if (box && state.pending) {
-      state.pending.options = $$('[data-options-list] input:checked').map(function (i) { return i.value; });
+      state.pending.options = $$('[data-options-list] input[type=checkbox]:checked')
+        .map(function (i) { return i.value; });
+      var picked = $('[data-options-list] input[type=radio]:checked');
+      if (picked) state.pending.variant = picked.value;
       updateOptionsPrice();
     }
     var tableInput = e.target.closest('[data-table-input]');

@@ -941,3 +941,33 @@
 .diet-badge .ico { width: .95em; height: .95em; stroke-width: 2; }
 .menu-notes__card .diet-badge { vertical-align: middle; }
 .chip--diet .ico { width: 1.25em; height: 1.25em; stroke-width: 1.9; }
+
+/* ── the supplied category icons are solid artwork, not strokes ── */
+.ico--solid { fill: currentColor; stroke: none; }
+.menu-section__head h2 .ico--solid { width: 1.5em; height: 1.5em; }
+.chip .ico--solid { width: 1.3em; height: 1.3em; }
+
+/* section head: title block on the baseline, rule centred through the rest */
+.menu-section__head h2 { line-height: 1.1; }
+.menu-section__head h2 .ico { align-self: center; position: relative; top: .02em; }
+.menu-section__note { align-self: center; position: relative; top: .05em; }
+
+/* items the card prices on the day */
+.item__ask {
+  font-family: var(--mono);
+  font-size: .78rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.item__control--none { display: none; }
+
+/* choosing a size (enkel / dubbel) before the add-ons */
+.option-group {
+  margin: 0 0 .6rem;
+  padding: 0 0 .4rem;
+  border-bottom: 1px solid var(--hairline);
+}
+.option--variant input { accent-color: var(--terracotta); }
+.option--variant span:first-of-type { font-family: var(--mono); font-weight: 700; font-size: .9rem; }
