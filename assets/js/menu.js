@@ -30,7 +30,8 @@
   }
 
 
-  var SOLID_ICONS = ['croissant', 'coffeepot', 'teaset', 'drinkjar', 'cake', 'breakfastcup'];
+  var SOLID_ICONS = ['croissant', 'coffeepot', 'teaset', 'drinkjar', 'cake', 'breakfastcup',
+                     'toastedbread', 'wrap'];
 
   function icon(name, cls) {
     var solid = SOLID_ICONS.indexOf(name) !== -1 ? ' ico--solid' : '';

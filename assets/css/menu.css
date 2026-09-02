@@ -831,8 +831,11 @@
   gap: clamp(1rem, 2.5vw, 1.8rem);
   max-width: 860px;
   margin: 0 auto;
+  align-items: stretch;      /* equal heights, whatever the quote length */
 }
 .fav {
+  display: flex;
+  flex-direction: column;
   background: var(--cream);
   border: 1px solid var(--hairline);
   border-radius: var(--radius);
@@ -861,15 +864,17 @@
   font-family: var(--display);
   font-style: italic;
   font-size: .92rem;
+  line-height: 1.35;
   color: var(--delft-deep);
-  margin: 0 0 .8rem;
+  margin: 0 0 .9rem;
 }
 .fav__foot {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: .7rem;
-  margin: 0;
+  margin: auto 0 0;          /* pinned to the bottom, so the buttons line up */
+  padding-top: .2rem;
 }
 .fav__price { font-family: var(--mono); font-weight: 700; font-size: .95rem; }
 .fav__add {
