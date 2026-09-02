@@ -178,11 +178,12 @@
     var quotes = (data && data.quotes) || [];
     if (!quotes.length) return;               // nothing to show, nothing to see
 
-    list.innerHTML = quotes.map(function (q) {
+    list.innerHTML = quotes.map(function (q, i) {
       var text = typeof q.text === 'string'
         ? '<span>' + q.text + '</span>'
         : '<span lang="nl">' + (q.text.nl || '') + '</span><span lang="en">' + (q.text.en || '') + '</span>';
-      return '<figure class="voice reveal">' +
+      return '<figure class="voice voice--' + (i % 4) + (i === 0 ? ' voice--lead' : '') + ' reveal">' +
+        '<span class="voice__tape" aria-hidden="true"></span>' +
         '<blockquote>' + text + '</blockquote>' +
         '<figcaption>' + (q.name || '') +
         (q.source ? ' <span class="voice__source">· ' + q.source + '</span>' : '') +

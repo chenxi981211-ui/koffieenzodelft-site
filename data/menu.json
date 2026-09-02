@@ -53,6 +53,16 @@
               "en": "with jam",
               "price": 0.3
             }
+          ],
+          "keywords": [
+            "pastry",
+            "gebak",
+            "viennoiserie",
+            "bread",
+            "brood",
+            "jam",
+            "ontbijt",
+            "breakfast"
           ]
         },
         {
@@ -65,6 +75,14 @@
           },
           "price": 3.75,
           "diet": [
+            "vegan"
+          ],
+          "keywords": [
+            "chocolate croissant",
+            "chocolade",
+            "chocolate",
+            "pastry",
+            "gebak",
             "vegan"
           ]
         },
@@ -88,6 +106,21 @@
               "en": "with coconut yogurt",
               "price": 1.0
             }
+          ],
+          "keywords": [
+            "yoghurt",
+            "yogurt",
+            "muesli",
+            "granola",
+            "fruit",
+            "bowl",
+            "kom",
+            "honing",
+            "honey",
+            "breakfast",
+            "ontbijt",
+            "kokos",
+            "coconut"
           ]
         }
       ]
@@ -127,6 +160,21 @@
               "en": "with truffle mayo",
               "price": 0.5
             }
+          ],
+          "keywords": [
+            "tosti",
+            "toastie",
+            "toasted sandwich",
+            "sandwich",
+            "broodje",
+            "grilled cheese",
+            "kaas",
+            "cheese",
+            "tomaat",
+            "tomato",
+            "pesto",
+            "lunch",
+            "warm"
           ]
         },
         {
@@ -154,6 +202,22 @@
               "en": "with truffle mayo",
               "price": 0.5
             }
+          ],
+          "keywords": [
+            "tosti",
+            "toastie",
+            "toasted sandwich",
+            "sandwich",
+            "broodje",
+            "grilled cheese",
+            "geitenkaas",
+            "goat cheese",
+            "pecan",
+            "rucola",
+            "arugula",
+            "honing",
+            "honey",
+            "lunch"
           ]
         },
         {
@@ -167,6 +231,19 @@
           "price": 11.25,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "wrap",
+            "burrito",
+            "roll",
+            "falafel",
+            "hummus",
+            "beetroot",
+            "rode biet",
+            "vegan",
+            "plantaardig",
+            "lunch",
+            "sandwich"
           ]
         },
         {
@@ -180,6 +257,18 @@
           "price": 11.25,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "wrap",
+            "burrito",
+            "roll",
+            "kip",
+            "chicken",
+            "vegakip",
+            "plant-based",
+            "vegetarisch",
+            "lunch",
+            "sandwich"
           ]
         }
       ]
@@ -228,6 +317,13 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "shot",
+            "zwart",
+            "black"
           ]
         },
         {
@@ -238,6 +334,14 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "double",
+            "dubbel",
+            "doppio",
+            "shot"
           ]
         },
         {
@@ -248,6 +352,14 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "black",
+            "zwarte koffie",
+            "long black",
+            "iced"
           ]
         },
         {
@@ -258,6 +370,14 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "melk",
+            "milk",
+            "foam",
+            "schuim"
           ]
         },
         {
@@ -268,6 +388,13 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "melk",
+            "milk",
+            "macchiato"
           ]
         },
         {
@@ -278,6 +405,13 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "melk",
+            "milk",
+            "flatwhite"
           ]
         },
         {
@@ -288,6 +422,14 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "melk",
+            "milk",
+            "caffe latte",
+            "iced"
           ]
         },
         {
@@ -298,6 +440,14 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "koffie",
+            "coffee",
+            "melk",
+            "milk",
+            "macchiato",
+            "latte macchiato"
           ]
         },
         {
@@ -312,6 +462,19 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "tea",
+            "thee",
+            "sencha",
+            "rooibos",
+            "earl grey",
+            "jasmijn",
+            "jasmine",
+            "oolong",
+            "witte thee",
+            "white tea",
+            "breakfast blend"
           ]
         },
         {
@@ -322,6 +485,15 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "mint tea",
+            "munt",
+            "mint",
+            "verse thee",
+            "fresh tea",
+            "kruiden",
+            "herbal"
           ]
         },
         {
@@ -332,6 +504,15 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "ginger tea",
+            "gember",
+            "ginger",
+            "verse thee",
+            "fresh tea",
+            "kruiden",
+            "herbal"
           ]
         },
         {
@@ -342,6 +523,13 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "chai",
+            "spiced tea",
+            "kruidenthee",
+            "melk",
+            "milk"
           ]
         },
         {
@@ -352,6 +540,15 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "hot chocolate",
+            "chocolademelk",
+            "chocomel",
+            "cacao",
+            "cocoa",
+            "warme chocolade",
+            "kids"
           ]
         }
       ]
@@ -374,6 +571,15 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "juice",
+            "sap",
+            "appelsap",
+            "apple juice",
+            "perensap",
+            "pear juice",
+            "schulp"
           ]
         },
         {
@@ -384,6 +590,13 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "orange juice",
+            "sinaasappelsap",
+            "jus",
+            "fresh juice",
+            "vers geperst"
           ]
         },
         {
@@ -394,6 +607,13 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "iced tea",
+            "ijsthee",
+            "koud",
+            "cold",
+            "homemade"
           ]
         },
         {
@@ -404,6 +624,13 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "smoothie",
+            "fruit",
+            "shake",
+            "koud",
+            "cold"
           ]
         },
         {
@@ -414,6 +641,14 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "soft drink",
+            "soda",
+            "frisdrank",
+            "cola",
+            "limonade",
+            "lemonade"
           ]
         },
         {
@@ -424,6 +659,15 @@
           "priceCheck": true,
           "diet": [
             "vegan"
+          ],
+          "keywords": [
+            "water",
+            "sparkling",
+            "still",
+            "bruisend",
+            "plat",
+            "mineraalwater",
+            "mineral water"
           ]
         }
       ]
@@ -455,6 +699,17 @@
               "en": "with whipped cream",
               "price": 0.7
             }
+          ],
+          "keywords": [
+            "apple pie",
+            "appeltaart",
+            "taart",
+            "cake",
+            "pie",
+            "dutch apple pie",
+            "gebak",
+            "slagroom",
+            "whipped cream"
           ]
         },
         {
@@ -473,6 +728,13 @@
               "en": "with whipped cream",
               "price": 0.7
             }
+          ],
+          "keywords": [
+            "carrot cake",
+            "worteltaart",
+            "taart",
+            "cake",
+            "gebak"
           ]
         },
         {
@@ -483,6 +745,13 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "cheesecake",
+            "kwarktaart",
+            "taart",
+            "cake",
+            "gebak"
           ]
         },
         {
@@ -493,6 +762,15 @@
           "priceCheck": true,
           "diet": [
             "veg"
+          ],
+          "keywords": [
+            "brownie",
+            "blondie",
+            "chocolade",
+            "chocolate",
+            "gebak",
+            "cake",
+            "sweet"
           ]
         }
       ]
@@ -519,14 +797,14 @@
         "quote": "scrumptious pastries"
       },
       {
-        "id": "appeltaart",
-        "icon": "cake",
-        "quote": "delicious apple pie"
+        "id": "granola-bowl",
+        "image": "assets/img/granola-bowl.jpg",
+        "quote": "beautiful design and great location"
       }
     ],
     "dietNote": {
-      "nl": "Ook vaak genoemd: de vegan en glutenvrije opties.",
-      "en": "Also mentioned often: the vegan and gluten-free options."
+      "nl": "Ook vaak genoemd: de appeltaart, en de vegan en glutenvrije opties.",
+      "en": "Also mentioned often: the apple pie, and the vegan and gluten-free options."
     }
   }
 }

@@ -143,11 +143,72 @@
   }
 
   /* ── rendering: the menu ──────────────────────────────── */
+  /* ── searching ────────────────────────────────────────────
+     Guests type what they call the thing, not what the card calls it:
+     "sandwich" should find the tosti, and a slip like "sandwish" should
+     still land. So: match on names, descriptions, category and a list of
+     synonyms per item, ignore accents, and allow a small edit distance. */
+  function normalise(str) {
+    return (str || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s]/g, ' ');
+  }
+
+  function editDistance(a, b) {
+    if (a === b) return 0;
+    if (Math.abs(a.length - b.length) > 2) return 99;
+    var prev = [], cur = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      cur[0] = i;
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = Math.min(
+          prev[j] + 1,
+          cur[j - 1] + 1,
+          prev[j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1)
+        );
+      }
+      for (j = 0; j <= b.length; j++) prev[j] = cur[j];
+    }
+    return prev[b.length];
+  }
+
+  function haystackFor(item) {
+    if (item._hay) return item._hay;
+    var cat = null;
+    state.menu.categories.forEach(function (c) {
+      c.items.forEach(function (i) { if (i.id === item.id) cat = c; });
+    });
+    var parts = [item.nl, item.en, item.id.replace(/-/g, ' ')];
+    if (item.desc) parts.push(item.desc.nl, item.desc.en);
+    if (item.keywords) parts = parts.concat(item.keywords);
+    if (cat) parts.push(cat.nl, cat.en);
+    (item.options || []).forEach(function (o) { parts.push(o.nl, o.en); });
+    item._hay = normalise(parts.join(' '));
+    item._words = item._hay.split(/\s+/).filter(Boolean);
+    return item._hay;
+  }
+
+  function tokenMatches(token, item) {
+    var hay = haystackFor(item);
+    if (hay.indexOf(token) !== -1) return true;
+    if (token.length < 4) return false;
+    var slack = token.length >= 7 ? 2 : 1;
+    for (var i = 0; i < item._words.length; i++) {
+      var word = item._words[i];
+      if (Math.abs(word.length - token.length) > slack) continue;
+      if (editDistance(token, word) <= slack) return true;
+    }
+    return false;
+  }
+
   function itemMatches(item) {
     if (state.diet && (item.diet || []).indexOf(state.diet) === -1) return false;
     if (!state.search) return true;
-    var hay = [item.nl, item.en, t(item.desc)].join(' ').toLowerCase();
-    return hay.indexOf(state.search.toLowerCase()) !== -1;
+    var tokens = normalise(state.search).split(/\s+/).filter(Boolean);
+    return tokens.every(function (token) { return tokenMatches(token, item); });
   }
 
   function qtyOf(itemId) {
@@ -169,8 +230,9 @@
     var root = $('[data-menu-root]');
     if (!root) return;
 
+    var searching = !!state.search;
     var html = state.menu.categories.filter(function (cat) {
-      return state.category === 'all' || state.category === cat.id;
+      return searching || state.category === 'all' || state.category === cat.id;
     }).map(function (cat) {
       var items = cat.items.filter(itemMatches);
       if (!items.length) return '';
@@ -588,6 +650,12 @@
   if (searchInput) {
     searchInput.addEventListener('input', function () {
       state.search = searchInput.value.trim();
+      if (state.search && state.category !== 'all') {
+        state.category = 'all';
+        $$('[data-category]').forEach(function (c) {
+          c.classList.toggle('is-active', c.dataset.category === 'all');
+        });
+      }
       renderMenu();
     });
   }
