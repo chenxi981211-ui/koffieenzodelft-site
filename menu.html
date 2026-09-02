@@ -53,19 +53,39 @@
   <!-- ── menu head ────────────────────────────────────────── -->
   <section class="menu-head">
     <div class="menu-head__inner">
+      <div class="menu-head__strip" aria-hidden="true">
+        <figure><img src="assets/img/coffee-pastry.jpg" width="1200" height="1200" alt=""></figure>
+        <figure><img src="assets/img/granola-bowl.jpg" width="1200" height="900" alt=""></figure>
+        <figure><img src="assets/img/cold-drink.jpg" width="1100" height="1100" alt=""></figure>
+        <figure><img src="assets/img/iced-coffee.jpg" width="676" height="900" alt=""></figure>
+      </div>
+
       <p class="eyebrow"><span lang="nl">Menukaart</span><span lang="en">Menu</span></p>
       <h1>
         <span lang="nl">Wat wordt het <em>vandaag</em>?</span>
         <span lang="en">What'll it be <em>today</em>?</span>
       </h1>
+      <p class="menu-head__rule" aria-hidden="true"><span>&#10086;</span></p>
       <p class="menu-head__sub">
-        <span lang="nl">Lokaal gebrande koffie, verse lunch en taart van het huis. Zit je binnen? Tik op <strong>+</strong>
-          en bestel vanaf je eigen tafel.</span>
-        <span lang="en">Locally roasted coffee, fresh lunch and homemade cake. Sitting in? Tap <strong>+</strong>
-          and order from your own table.</span>
+        <span lang="nl">Lokaal gebrande koffie, verse lunch en taart van het huis.
+          Zit je binnen? Tik op <strong>+</strong> en bestel vanaf je eigen tafel.</span>
+        <span lang="en">Locally roasted coffee, fresh lunch and homemade cake.
+          Sitting in? Tap <strong>+</strong> and order from your own table.</span>
       </p>
 
-      <p class="hours__status hours__status--inline" data-hours-status aria-live="polite"></p>
+      <div class="menu-head__meta">
+        <p class="hours__status hours__status--inline" data-hours-status aria-live="polite"></p>
+
+        <div class="table-chip" data-table-chip hidden>
+          <span class="table-chip__label">
+            <span lang="nl">Je zit aan tafel</span><span lang="en">You're at table</span>
+          </span>
+          <strong data-table-number>&mdash;</strong>
+          <button type="button" class="table-chip__edit" data-change-table>
+            <span lang="nl">wijzigen</span><span lang="en">change</span>
+          </button>
+        </div>
+      </div>
 
       <div class="table-ask" data-table-ask hidden>
         <label for="table-ask-input">
@@ -81,16 +101,6 @@
             <span lang="nl">liever niet</span><span lang="en">not now</span>
           </button>
         </div>
-      </div>
-
-      <div class="table-chip" data-table-chip hidden>
-        <span class="table-chip__label">
-          <span lang="nl">Je zit aan tafel</span><span lang="en">You're at table</span>
-        </span>
-        <strong data-table-number>—</strong>
-        <button type="button" class="table-chip__edit" data-change-table>
-          <span lang="nl">wijzigen</span><span lang="en">change</span>
-        </button>
       </div>
     </div>
   </section>
