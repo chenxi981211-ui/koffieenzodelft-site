@@ -8,47 +8,66 @@
 .menu-head {
   position: relative;
   z-index: 2;
-  background:
-    radial-gradient(120% 90% at 50% -10%, var(--delft-tint) 0%, transparent 62%),
-    linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 100%);
-  border-bottom: 1px solid var(--hairline);
-  padding: clamp(1.6rem, 4vw, 2.8rem) var(--gutter) clamp(1.4rem, 3.5vw, 2.2rem);
+  background: var(--delft);
+  border-bottom: 1px solid rgba(71, 117, 140, .35);
+  padding: clamp(1.8rem, 4.5vw, 3.2rem) var(--gutter) clamp(1.6rem, 4vw, 2.6rem);
   overflow: hidden;
 }
+/* a faint sunburst, the logo's own device, behind the plates */
+.menu-head::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: min(900px, 120%);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  opacity: .28;
+  background: repeating-conic-gradient(from 5deg,
+    #FFF 0deg 2.4deg, transparent 2.4deg 9deg);
+  mask-image: radial-gradient(circle, #000 20%, transparent 68%);
+  -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 68%);
+  pointer-events: none;
+}
+.menu-head__inner { position: relative; }
 .menu-head__inner {
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
 }
 
-/* four windows onto the counter, tilted like pinned prints */
+/* four plates: round, cream-rimmed, tilted like pinned prints */
 .menu-head__strip {
   display: flex;
   justify-content: center;
-  gap: clamp(.5rem, 1.6vw, 1rem);
-  margin-bottom: clamp(1.1rem, 3vw, 1.8rem);
+  gap: clamp(.7rem, 2.2vw, 1.6rem);
+  margin-bottom: clamp(1.3rem, 3.5vw, 2rem);
 }
 .menu-head__strip figure {
   margin: 0;
-  width: clamp(64px, 13vw, 104px);
-  aspect-ratio: 3 / 4;
+  width: clamp(96px, 18vw, 168px);
+  aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 999px 999px 8px 8px;
-  box-shadow: var(--shadow-card);
+  border-radius: 50%;
+  border: 5px solid var(--cream);
+  box-shadow: 0 14px 28px -16px rgba(35, 55, 65, .75);
   background: var(--cream);
   transition: transform .3s cubic-bezier(.2, .7, .3, 1);
 }
 .menu-head__strip img { width: 100%; height: 100%; object-fit: cover; }
-.menu-head__strip figure:nth-child(1) { transform: rotate(-3deg) translateY(4px); }
-.menu-head__strip figure:nth-child(2) { transform: rotate(1.5deg); }
-.menu-head__strip figure:nth-child(3) { transform: rotate(-1.5deg); }
-.menu-head__strip figure:nth-child(4) { transform: rotate(3deg) translateY(4px); }
-.menu-head__strip:hover figure { transform: rotate(0) translateY(0); }
+.menu-head__strip figure:nth-child(1) { transform: rotate(-4deg) translateY(8px); }
+.menu-head__strip figure:nth-child(2) { transform: rotate(2deg) translateY(-6px); }
+.menu-head__strip figure:nth-child(3) { transform: rotate(-2deg) translateY(-2px); }
+.menu-head__strip figure:nth-child(4) { transform: rotate(4deg) translateY(8px); }
+.menu-head__strip figure:hover { transform: rotate(0) translateY(-6px) scale(1.04); }
 
 .menu-head h1 {
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.1rem);
   margin-bottom: .35rem;
+  color: var(--brown-deep);
 }
+.menu-head .eyebrow { color: var(--brown); }
+.menu-head h1 em { color: var(--terracotta-dark); }
 
 /* a printer's ornament between title and standfirst */
 .menu-head__rule {
@@ -67,9 +86,12 @@
   background: rgba(78, 62, 43, .3);
 }
 .menu-head__rule span { font-size: .95rem; line-height: 1; }
+.menu-head__rule::before, .menu-head__rule::after { background: rgba(52, 40, 27, .35); }
 
 .menu-head__sub {
-  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: .92rem;
+  color: var(--brown-deep);
   max-width: 52ch;
   margin: 0 auto;
   font-size: 1rem;
@@ -135,6 +157,7 @@
 
 @media (max-width: 560px) {
   .menu-head__strip figure:nth-child(4) { display: none; }
+  .menu-head__strip { gap: .5rem; }
 }
 
 /* ── toolbar ────────────────────────────────────────────── */
@@ -221,8 +244,8 @@
 }
 .menu-section__head h2 { margin: 0; }
 .menu-section__note {
-  font-family: var(--display);
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: .82rem;
   color: var(--terracotta);
   font-size: .95rem;
 }
@@ -253,6 +276,7 @@
   margin: 0 0 clamp(2rem, 5vw, 3.5rem);
 }
 .menu-notes__card {
+  font-family: var(--mono);
   margin: 0;
   background: var(--cream);
   border: 1px dashed var(--edge);
@@ -387,9 +411,9 @@
   padding: .7rem 0;
   border-bottom: 1px dashed rgba(36,26,19,.3);
 }
-.cart__name { font-family: var(--display); font-weight: 600; }
+.cart__name { font-family: var(--mono); font-weight: 700; font-size: .92rem; }
 .cart__opts { grid-column: 1 / -1; font-size: .82rem; color: var(--ink-soft); margin: -.35rem 0 0; }
-.cart__price { font-family: var(--display); font-weight: 700; min-width: 4.2rem; text-align: right; }
+.cart__price { font-family: var(--mono); font-weight: 700; min-width: 4.2rem; text-align: right; font-variant-numeric: tabular-nums; }
 
 .cart__table, .cart__note { margin: .9rem 0; }
 .cart__table label, .cart__note label {
@@ -619,8 +643,9 @@
   margin: 0 0 1.2rem;
 }
 .menu-section__head h2 {
-  font-size: clamp(1.15rem, 1rem + .5vw, 1.5rem);
-  letter-spacing: .16em;
+  font-family: var(--mono);
+  font-size: clamp(1rem, .9rem + .4vw, 1.2rem);
+  letter-spacing: .2em;
   text-transform: uppercase;
   font-variation-settings: "SOFT" 20, "WONK" 0;
   font-weight: 700;
@@ -634,8 +659,8 @@
   background: rgba(78, 62, 43, .3);
 }
 .menu-section__note {
-  font-family: var(--display);
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: .82rem;
   color: var(--terracotta);
   font-size: .92rem;
   white-space: nowrap;
@@ -658,11 +683,11 @@
   gap: .45rem;
 }
 .item__name {
-  font-family: var(--display);
-  font-variation-settings: "SOFT" 30, "WONK" 1;
-  font-weight: 600;
-  font-size: 1.05rem;
-  line-height: 1.3;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: -.01em;
+  line-height: 1.35;
   margin: 0;
 }
 .item__leader {
@@ -673,21 +698,20 @@
   border-bottom: 1px dotted rgba(78, 62, 43, .45);
 }
 .item__price {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 1rem;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: .95rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .item__desc {
-  margin: .18rem 0 0;
+  margin: .2rem 0 0;
   padding-right: 3rem;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: .88rem;
-  line-height: 1.45;
+  font-family: var(--mono);
+  font-size: .8rem;
+  line-height: 1.5;
   color: var(--ink-soft);
-  max-width: 46ch;
+  max-width: 52ch;
 }
 .item.is-in-cart .item__name { color: var(--terracotta-dark); }
 .item.is-in-cart .item__name::after {
@@ -741,9 +765,123 @@
   border: 0;
   background: none;
   padding: .6rem 0 0;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: .86rem;
+  font-family: var(--mono);
+  font-size: .78rem;
   color: var(--ink-soft);
   border-top: 1px dotted rgba(78, 62, 43, .35);
 }
+
+
+/* ── what guests mention most ───────────────────────────── */
+.favourites {
+  position: relative;
+  z-index: 2;
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--hairline);
+  padding: clamp(1.8rem, 4vw, 2.8rem) var(--gutter);
+}
+.favourites__inner { max-width: var(--maxw); margin: 0 auto; text-align: center; }
+.favourites__title {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--mono);
+  font-size: clamp(1rem, .9rem + .4vw, 1.15rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin: 0 0 .4rem;
+}
+.favourites__title .ico { color: var(--terracotta); }
+.favourites__note {
+  font-family: var(--mono);
+  font-size: .8rem;
+  color: var(--ink-soft);
+  margin: 0 auto 1.6rem;
+  max-width: 54ch;
+}
+.favourites__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+  max-width: 860px;
+  margin: 0 auto;
+}
+.fav {
+  background: var(--cream);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 1rem 1rem 1.1rem;
+  box-shadow: var(--shadow-card);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.fav:hover { transform: translateY(-3px); box-shadow: var(--shadow-hard); }
+.fav__photo {
+  margin: 0 auto .8rem;
+  width: clamp(96px, 22vw, 132px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--paper);
+  box-shadow: var(--shadow-card);
+}
+.fav__photo img { width: 100%; height: 100%; object-fit: cover; }
+.fav__name {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: .95rem;
+  margin: 0 0 .3rem;
+}
+.fav__quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: .92rem;
+  color: var(--delft-deep);
+  margin: 0 0 .8rem;
+}
+.fav__foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  margin: 0;
+}
+.fav__price { font-family: var(--mono); font-weight: 700; font-size: .95rem; }
+.fav__add {
+  border: 1px solid var(--edge);
+  background: var(--butter);
+  border-radius: 999px;
+  padding: .35rem .9rem;
+  font: 700 .82rem var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow-pop);
+  transition: transform .12s ease, background-color .15s ease;
+}
+.fav__add:hover { background: var(--terracotta); color: #FFF7EC; transform: translateY(-1px); }
+.favourites__diet {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-family: var(--mono);
+  font-size: .78rem;
+  color: var(--sage);
+  margin: 1.4rem 0 0;
+}
+
+/* chips and section heads carry the drawn icons */
+.chip .ico { margin-right: .35rem; color: var(--terracotta); }
+.chip.is-active .ico { color: var(--butter); }
+.chip--diet .ico { color: var(--sage); }
+.chip--diet.is-active .ico { color: #FFF8EA; }
+.menu-section__head h2 .ico { color: var(--terracotta); margin-right: .5rem; width: 1.2em; height: 1.2em; }
+.item__diet .ico { color: var(--sage); width: .95em; height: .95em; }
+.toolbar__search-icon { display: inline-flex; color: var(--ink-soft); }
+
+/* a favourite with no photo yet gets a drawn mark, not a stand-in dish */
+.fav__photo--drawn {
+  display: grid;
+  place-items: center;
+  background: var(--delft-tint);
+  border-color: var(--cream);
+  color: var(--delft-deep);
+}
+.fav__photo--drawn .ico { width: 42%; height: 42%; stroke-width: 1.3; }

@@ -13,6 +13,23 @@
 <link rel="stylesheet" href="assets/css/menu.css">
 </head>
 <body class="page-menu">
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <g id="i-star"><path d="M12 3.5v17M3.5 12h17M6 6l12 12M18 6L6 18"/></g>
+    <g id="i-croissant"><path d="M3.6 15.4c3-1.4 5-3.4 6.4-6.4M20.4 15.4c-3-1.4-5-3.4-6.4-6.4"/><path d="M4 15.6c2.6 2.2 5.2 3.2 8 3.2s5.4-1 8-3.2c.6-.5.5-1.3-.3-1.5-2.6-.7-4.3-2.4-5.2-5-.3-.8-1.4-.8-1.7 0-.9 2.6-2.6 4.3-5.2 5-.8.2-1 1-.4 1.5Z"/></g>
+    <g id="i-sandwich"><path d="M4 10.5 12 6l8 4.5-8 4.5-8-4.5Z"/><path d="M4 14.2l8 4.5 8-4.5"/></g>
+    <g id="i-cup"><path d="M5 8.5h11v6a4.5 4.5 0 0 1-4.5 4.5h-2A4.5 4.5 0 0 1 5 14.5v-6Z"/><path d="M16 10.5h1.8a2.6 2.6 0 0 1 0 5.2H16"/><path d="M8 3.4c-.9 1.1.9 1.9 0 3M12 3.4c-.9 1.1.9 1.9 0 3"/></g>
+    <g id="i-glass"><path d="M6.5 5h11l-1.4 13.2a1.6 1.6 0 0 1-1.6 1.4h-5a1.6 1.6 0 0 1-1.6-1.4L6.5 5Z"/><path d="M7.2 10.4h9.6"/><path d="M13.5 2.5 12 5"/></g>
+    <g id="i-cake"><path d="M4 19.5h16v-6.2c0-1-.8-1.8-1.8-1.8H5.8c-1 0-1.8.8-1.8 1.8v6.2Z"/><path d="M4 15.4c1.6 1.3 3.2 1.3 4.8 0s3.2-1.3 4.8 0 3.2 1.3 4.8 0"/><path d="M12 8.6V6.2M12 3.2v.6"/></g>
+    <g id="i-leaf"><path d="M19.5 4.5c-8 0-13 3.4-13 9a5.6 5.6 0 0 0 1.6 4c4-4.6 7.2-6.6 11.4-13Z"/><path d="M5 20c1.2-2.6 2.6-4.7 4.4-6.6"/></g>
+    <g id="i-sprout"><path d="M12 20v-7"/><path d="M12 13C12 9.7 9.7 7.4 6.4 7.4c0 3.3 2.3 5.6 5.6 5.6Z"/><path d="M12 12.2c0-3 2.1-5.1 5.1-5.1 0 3-2.1 5.1-5.1 5.1Z"/></g>
+    <g id="i-clock"><circle cx="12" cy="12.5" r="7.5"/><path d="M12 8.2v4.6l3 1.8"/><path d="M4.6 4 7 6.2M19.4 4 17 6.2"/></g>
+    <g id="i-pin"><path d="M12 21s6.5-6 6.5-10.5a6.5 6.5 0 0 0-13 0C5.5 15 12 21 12 21Z"/><circle cx="12" cy="10.4" r="2.4"/></g>
+    <g id="i-card"><rect x="3" y="6" width="18" height="12" rx="2.2"/><path d="M3 10.2h18M6.4 14.4h3.4"/></g>
+    <g id="i-search"><circle cx="11" cy="11" r="6.2"/><path d="M15.6 15.6 20 20"/></g>
+    <g id="i-heart"><path d="M12 19.6S4.4 15.2 4.4 9.8a3.9 3.9 0 0 1 7.6-1.3 3.9 3.9 0 0 1 7.6 1.3c0 5.4-7.6 9.8-7.6 9.8Z"/></g>
+  </defs>
+</svg>
 
 <a class="skip-link" href="#menu-main">
   <span lang="nl">Naar de kaart</span><span lang="en">Skip to the menu</span>
@@ -105,6 +122,19 @@
     </div>
   </section>
 
+  <!-- ── what guests mention most ────────────────────────── -->
+  <section class="favourites" data-favourites hidden>
+    <div class="favourites__inner">
+      <h2 class="favourites__title">
+        <svg class="ico ico--lg" aria-hidden="true"><use href="#i-heart"></use></svg>
+        <span data-fav-title></span>
+      </h2>
+      <p class="favourites__note" data-fav-note></p>
+      <div class="favourites__grid" data-fav-list></div>
+      <p class="favourites__diet" data-fav-diet></p>
+    </div>
+  </section>
+
   <!-- ── toolbar ──────────────────────────────────────────── -->
   <div class="toolbar" id="toolbar">
     <div class="toolbar__inner">
@@ -112,7 +142,7 @@
         <label class="sr-only" for="menu-search">
           <span lang="nl">Zoek in de kaart</span><span lang="en">Search the menu</span>
         </label>
-        <span class="toolbar__search-icon" aria-hidden="true">🔎</span>
+        <span class="toolbar__search-icon"><svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg></span>
         <input id="menu-search" type="search" autocomplete="off"
                data-placeholder-nl="Zoek… bijv. cappuccino"
                data-placeholder-en="Search… e.g. cappuccino">
@@ -122,10 +152,10 @@
 
       <div class="chips chips--diet" role="group" aria-label="Filters">
         <button type="button" class="chip chip--diet" data-diet="veg">
-          🌿 <span lang="nl">vegetarisch</span><span lang="en">vegetarian</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-sprout"></use></svg><span lang="nl">vegetarisch</span><span lang="en">vegetarian</span>
         </button>
         <button type="button" class="chip chip--diet" data-diet="vegan">
-          🌱 <span lang="nl">vegan</span><span lang="en">vegan</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-leaf"></use></svg><span lang="nl">vegan</span><span lang="en">vegan</span>
         </button>
       </div>
     </div>

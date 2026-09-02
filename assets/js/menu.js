@@ -29,6 +29,11 @@
     try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* private mode */ }
   }
 
+
+  function icon(name, cls) {
+    return '<svg class="' + (cls || 'ico') + '" aria-hidden="true"><use href="#i-' + name + '"></use></svg>';
+  }
+
   function lang() { return document.documentElement.getAttribute('data-lang') || 'nl'; }
   function t(obj) { return obj ? (obj[lang()] || obj.nl || obj.en || '') : ''; }
   function money(n) { return '€ ' + n.toFixed(2).replace('.', ','); }
@@ -42,6 +47,7 @@
     .then(function (data) {
       state.menu = data;
       renderChips();
+      renderFavourites();
       renderMenu();
       renderNotes();
       renderCart();
@@ -84,14 +90,54 @@
     if (input && state.table) input.value = state.table;
   }
 
+
+  /* ── what guests mention most ─────────────────────────────
+     Sourced from the quotes in data/reviews.json, not from sales figures —
+     the note under the heading says so plainly. */
+  function renderFavourites() {
+    var section = document.querySelector('[data-favourites]');
+    var list = document.querySelector('[data-fav-list]');
+    var fav = state.menu.favourites;
+    if (!section || !list || !fav || !fav.items || !fav.items.length) return;
+
+    document.querySelector('[data-fav-title]').innerHTML =
+      '<span lang="nl">' + fav.title.nl + '</span><span lang="en">' + fav.title.en + '</span>';
+    document.querySelector('[data-fav-note]').innerHTML =
+      '<span lang="nl">' + fav.note.nl + '</span><span lang="en">' + fav.note.en + '</span>';
+    if (fav.dietNote) {
+      document.querySelector('[data-fav-diet]').innerHTML =
+        icon('leaf') + '<span lang="nl">' + fav.dietNote.nl + '</span>' +
+        '<span lang="en">' + fav.dietNote.en + '</span>';
+    }
+
+    list.innerHTML = fav.items.map(function (entry) {
+      var item = findItem(entry.id);
+      if (!item) return '';
+      var art = entry.image
+        ? '<figure class="fav__photo"><img src="' + entry.image + '" alt="" loading="lazy"></figure>'
+        : '<figure class="fav__photo fav__photo--drawn">' + icon(entry.icon || 'cake', 'ico') + '</figure>';
+      return '<article class="fav">' + art +
+        '<h3 class="fav__name">' +
+          '<span lang="nl">' + item.nl + '</span><span lang="en">' + item.en + '</span>' +
+        '</h3>' +
+        (entry.quote ? '<p class="fav__quote">\u201c' + entry.quote + '\u201d</p>' : '') +
+        '<p class="fav__foot"><span class="fav__price">' + money(item.price) + '</span>' +
+          '<button type="button" class="fav__add" data-add="' + item.id + '">' +
+            '<span lang="nl">Toevoegen</span><span lang="en">Add</span>' +
+          '</button></p>' +
+      '</article>';
+    }).join('');
+    section.hidden = false;
+  }
+
   /* ── rendering: category chips ────────────────────────── */
   function renderChips() {
     var wrap = $('[data-category-chips]');
     if (!wrap) return;
-    var cats = [{ id: 'all', nl: 'Alles', en: 'Everything', icon: '✳' }].concat(state.menu.categories);
+    var cats = [{ id: 'all', nl: 'Alles', en: 'Everything', icon: 'star' }].concat(state.menu.categories);
     wrap.innerHTML = cats.map(function (c) {
       return '<button type="button" class="chip' + (c.id === state.category ? ' is-active' : '') +
-        '" data-category="' + c.id + '">' + (c.icon ? c.icon + ' ' : '') +
+        '" data-category="' + c.id + '">' + (c.icon ? icon(c.icon) : '') +
         '<span lang="nl">' + c.nl + '</span><span lang="en">' + c.en + '</span></button>';
     }).join('');
   }
@@ -114,7 +160,8 @@
     return (item.diet || []).filter(function (d) { return d === 'vegan'; })
       .map(function (d) {
         var label = t(state.menu.diet[d]);
-        return '<span class="item__diet" title="' + label + '" aria-label="' + label + '">🌱</span>';
+        return '<span class="item__diet" title="' + label + '" aria-label="' + label + '">' +
+          icon('leaf') + '</span>';
       }).join('');
   }
 
@@ -130,7 +177,7 @@
 
       return '<section class="menu-section" id="cat-' + cat.id + '">' +
         '<div class="menu-section__head">' +
-          '<h2>' + (cat.icon ? cat.icon + ' ' : '') +
+          '<h2>' + (cat.icon ? icon(cat.icon) : '') +
             '<span lang="nl">' + cat.nl + '</span><span lang="en">' + cat.en + '</span></h2>' +
           (cat.note ? '<p class="menu-section__note">' +
             '<span lang="nl">' + cat.note.nl + '</span><span lang="en">' + cat.note.en + '</span></p>' : '') +

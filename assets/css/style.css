@@ -29,6 +29,7 @@
   /* type */
   --display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --text: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Courier Prime", "Courier New", ui-monospace, monospace;
 
   /* edges — hairlines, not outlines */
   --hairline: rgba(78, 62, 43, .16);
@@ -999,3 +1000,23 @@ html[data-lang="en"] [lang="nl"] { display: none; }
 @media (max-width: 560px) {
   .contact__form { grid-template-columns: 1fr; }
 }
+
+
+/* ── drawn icons, in place of emoji ─────────────────────── */
+.sprite { display: none; }
+.ico {
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -.15em;
+}
+.ico--lg { width: 1.7rem; height: 1.7rem; stroke-width: 1.5; }
+.info__icon { display: block; margin-bottom: .5rem; color: var(--delft-deep); }
+.info__card:nth-child(2) .info__icon { color: var(--terracotta); }
+.info__card:nth-child(3) .info__icon { color: var(--sage); }
+.map-card__pin { color: currentColor; }
